@@ -5,7 +5,7 @@ const baseRoute = '/login';
 
 router.route(baseRoute)
   .get((request, response) => {
-    response.send('Login');
+    response.render('login');
   });
 
 module.exports = router;
