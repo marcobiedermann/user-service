@@ -1,4 +1,5 @@
 const express = require('express');
+const authRoute = require('./auth');
 const loginRoute = require('./login');
 
 const router = express.Router();
@@ -9,6 +10,7 @@ router.route(baseRoute)
     response.send('Hello, world');
   });
 
+router.use(baseRoute, authRoute);
 router.use(baseRoute, loginRoute);
 
 module.exports = router;
