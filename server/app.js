@@ -11,6 +11,8 @@ mongoose.connect(config.mongodbUri);
 mongoose.connection.on('error', () => process.exit());
 
 app.use(expressSession({
+  resave: true,
+  saveUninitialized: true,
   secret: config.session.secret,
 }));
 app.use(passport.initialize());
