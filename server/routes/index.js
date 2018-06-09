@@ -7,7 +7,7 @@ const baseRoute = '/';
 
 router.route(baseRoute)
   .get((request, response) => {
-    response.send('Hello, world');
+    response.render('index');
   });
 
 router.use(baseRoute, authRoute);

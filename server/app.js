@@ -10,6 +10,9 @@ const app = express();
 mongoose.connect(config.mongodbUri);
 mongoose.connection.on('error', () => process.exit());
 
+app.set('view engine', 'ejs');
+app.set('views', `${__dirname}/views`);
+
 app.use(expressSession({
   resave: true,
   saveUninitialized: true,
