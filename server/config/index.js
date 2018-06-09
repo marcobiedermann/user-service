@@ -3,7 +3,7 @@ require('dotenv').config();
 const config = {
   port: process.env.PORT,
   session: {
-    secret: process.env.SECCION_SECRET,
+    secret: process.env.SESSION_SECRET,
   },
   twitter: {
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
