@@ -9,7 +9,7 @@ const config = {
   github: {
     clientId: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackUrl: '/auth/github/callback',
+    callbackUrl: 'https://marcobiedermann-passport.herokuapp.com/auth/github/callback',
   },
   twitter: {
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
