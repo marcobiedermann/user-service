@@ -1,6 +1,7 @@
 const express = require('express');
 const authRoute = require('./auth');
 const loginRoute = require('./login');
+const logoutRoute = require('./logout');
 const settingsRoute = require('./settings');
 
 const router = express.Router();
@@ -13,6 +14,7 @@ router.route(baseRoute)
 
 router.use(baseRoute, authRoute);
 router.use(baseRoute, loginRoute);
+router.use(baseRoute, logoutRoute);
 router.use(baseRoute, settingsRoute);
 
 module.exports = router;
