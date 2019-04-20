@@ -1,6 +1,7 @@
 const passport = require('passport');
 const User = require('../models/user');
 const githubStrategy = require('./github');
+const googleStrategy = require('./google');
 const twitterStrategy = require('./twitter');
 
 passport.serializeUser((user, done) => {
@@ -14,6 +15,7 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use(githubStrategy);
+passport.use(googleStrategy);
 passport.use(twitterStrategy);
 
 module.exports = passport;

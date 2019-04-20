@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema({
     id: String,
     token: String,
   },
+  google: {
+    id: String,
+    token: String,
+  },
   twitter: {
     id: String,
     token: String,
