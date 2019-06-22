@@ -2,15 +2,16 @@
   "name": "express-passport",
   "version": "1.0.0",
   "description": "",
-  "main": "server/index.js",
+  "main": "dist/server/index.js",
   "scripts": {
-    "develop": "nodemon server/index.js",
+    "build": "tsc",
+    "develop": "ts-node-dev ./src/server/index.js",
     "fix:js": "npm run lint:js -- --fix",
     "fix": "npm run fix:js",
     "format": "prettier --write '**/*.{css,html,js,jsx,json,md,yml,yaml}'",
     "lint:js": "eslint '**/*.js'",
     "lint": "npm run lint:js",
-    "start": "node server/index.js",
+    "start": "node ./dist/server/index.js",
     "test": "npm run lint"
   },
   "keywords": [],
@@ -34,8 +35,9 @@
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-prettier": "^3.1.0",
     "husky": "^2.4.1",
-    "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
-    "pretty-quick": "^1.11.1"
+    "pretty-quick": "^1.11.1",
+    "ts-node-dev": "^1.0.0-pre.40",
+    "typescript": "^3.5.2"
   }
 }
