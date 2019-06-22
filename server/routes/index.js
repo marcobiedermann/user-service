@@ -8,10 +8,9 @@ const settingsRoute = require('./settings');
 const router = express.Router();
 const baseRoute = '/';
 
-router.route(baseRoute)
-  .get((request, response) => {
-    response.render('index');
-  });
+router.route(baseRoute).get((request, response) => {
+  response.render('index');
+});
 
 router.use(baseRoute, authRoute);
 router.use(baseRoute, connectRoute);

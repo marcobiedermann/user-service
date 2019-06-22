@@ -13,11 +13,13 @@ mongoose.connection.on('error', () => process.exit());
 app.set('view engine', 'ejs');
 app.set('views', `${__dirname}/views/pages`);
 
-app.use(expressSession({
-  resave: true,
-  saveUninitialized: true,
-  secret: config.session.secret,
-}));
+app.use(
+  expressSession({
+    resave: true,
+    saveUninitialized: true,
+    secret: config.session.secret,
+  }),
+);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);

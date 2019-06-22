@@ -5,8 +5,7 @@ const callbackRoute = require('./callback');
 const router = express.Router();
 const baseRoute = '/google';
 
-router.route(baseRoute)
-  .get(passport.authenticate('google'));
+router.route(baseRoute).get(passport.authenticate('google'));
 
 router.use(baseRoute, callbackRoute);
 
