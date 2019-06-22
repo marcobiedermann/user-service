@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/server/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npm run clean && tsc",
+    "clean": "rimraf ./dist",
     "develop": "ts-node-dev ./src/server/index.js",
     "fix:js": "npm run lint:js -- --fix",
     "fix": "npm run fix:js",
@@ -47,6 +48,7 @@
     "husky": "^2.4.1",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
+    "rimraf": "^2.6.3",
     "ts-node-dev": "^1.0.0-pre.40",
     "typescript": "^3.5.2"
   }
