@@ -42,7 +42,7 @@
     "@types/passport-twitter": "^1.0.34",
     "eslint": "^6.0.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^5.0.0",
+    "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-prettier": "^3.1.0",
     "husky": "^2.4.1",
