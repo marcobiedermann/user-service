@@ -1,6 +1,6 @@
-const { Strategy: GoogleStrategy } = require('passport-google-oauth20');
-const config = require('../config');
-const User = require('../models/user');
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import { config } from '../config';
+import { User } from '../models/user';
 
 const googleStrategy = new GoogleStrategy(
   {
@@ -33,4 +33,4 @@ const googleStrategy = new GoogleStrategy(
   },
 );
 
-module.exports = googleStrategy;
+export { googleStrategy };

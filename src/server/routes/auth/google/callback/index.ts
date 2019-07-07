@@ -1,14 +1,14 @@
-const express = require('express');
-const passport = require('../../../../passport');
+import * as express from 'express';
+import { passport } from '../../../../passport';
 
 const router = express.Router();
 const baseRoute = '/callback';
 
 router.route(baseRoute).get(
-  passport.authenticate('twitter', {
+  passport.authenticate('google', {
     successRedirect: '/',
     failureRedirect: '/login',
   }),
 );
 
-module.exports = router;
+export { router };

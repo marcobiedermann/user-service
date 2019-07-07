@@ -1,4 +1,4 @@
-const express = require('express');
+import * as express from 'express';
 
 const router = express.Router();
 const baseRoute = '/logout';
@@ -8,4 +8,4 @@ router.route(baseRoute).get((request, response) => {
   response.redirect('/');
 });
 
-module.exports = router;
+export { router };

@@ -1,6 +1,6 @@
-const express = require('express');
-const callbackRoute = require('./callback');
-const passport = require('../../../passport');
+import * as express from 'express';
+import { passport } from '../../../passport';
+import { router as callbackRoute } from './callback';
 
 const router = express.Router();
 const baseRoute = '/twitter';
@@ -13,4 +13,4 @@ router.route(baseRoute).get(
 
 router.use(baseRoute, callbackRoute);
 
-module.exports = router;
+export { router };

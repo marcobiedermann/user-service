@@ -1,9 +1,9 @@
-const express = require('express');
-const authRoute = require('./auth');
-const connectRoute = require('./connect');
-const loginRoute = require('./login');
-const logoutRoute = require('./logout');
-const settingsRoute = require('./settings');
+import * as express from 'express';
+import { router as authRoute } from './auth';
+import { router as connectRoute } from './connect';
+import { router as loginRoute } from './login';
+import { router as logoutRoute } from './logout';
+import { router as settingsRoute } from './settings';
 
 const router = express.Router();
 const baseRoute = '/';
@@ -18,4 +18,4 @@ router.use(baseRoute, loginRoute);
 router.use(baseRoute, logoutRoute);
 router.use(baseRoute, settingsRoute);
 
-module.exports = router;
+export { router };

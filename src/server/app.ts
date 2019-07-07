@@ -1,9 +1,9 @@
-const express = require('express');
-const expressSession = require('express-session');
-const mongoose = require('mongoose');
-const config = require('./config');
-const passport = require('./passport');
-const routes = require('./routes');
+import * as express from 'express';
+import * as expressSession from 'express-session';
+import * as mongoose from 'mongoose';
+import { config } from './config';
+import { passport } from './passport';
+import { router as routes } from './routes';
 
 const app = express();
 
@@ -24,4 +24,4 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);
 
-module.exports = app;
+export { app };

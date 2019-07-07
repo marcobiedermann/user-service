@@ -1,22 +1,22 @@
-const { Strategy: TwitterStrategy } = require('passport-twitter');
-const config = require('../config');
-const User = require('../models/user');
+import { Strategy as GithubStrategy } from 'passport-github';
+import { config } from '../config';
+import { User } from '../models/user';
 
-const twitterStrategy = new TwitterStrategy(
+const githubStrategy = new GithubStrategy(
   {
-    consumerKey: config.twitter.consumerKey,
-    consumerSecret: config.twitter.consumerSecret,
-    callbackURL: config.twitter.callbackUrl,
+    clientID: config.github.clientId,
+    clientSecret: config.github.clientSecret,
+    callbackURL: config.github.callbackUrl,
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
       const user = await User.findOne({
-        'twitter.id': profile.id,
+        'github.id': profile.id,
       }).exec();
 
       if (!user) {
         const newUser = new User({
-          twitter: {
+          github: {
             id: profile.id,
             token: accessToken,
           },
@@ -33,4 +33,4 @@ const twitterStrategy = new TwitterStrategy(
   },
 );
 
-module.exports = twitterStrategy;
+export { githubStrategy };
