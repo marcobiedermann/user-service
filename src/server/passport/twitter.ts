@@ -8,7 +8,7 @@ const twitterStrategy = new TwitterStrategy(
     consumerSecret: config.twitter.consumerSecret,
     callbackURL: config.twitter.callbackUrl,
   },
-  async (accessToken, refreshToken, profile, done) => {
+  async (accessToken, refreshToken, profile, done): Promise<void> => {
     try {
       const user = await User.findOne({
         'twitter.id': profile.id,

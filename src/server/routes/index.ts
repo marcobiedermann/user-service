@@ -8,7 +8,7 @@ import { router as settingsRoute } from './settings';
 const router = express.Router();
 const baseRoute = '/';
 
-router.route(baseRoute).get((request, response) => {
+router.route(baseRoute).get((request, response): void => {
   response.render('index');
 });
 

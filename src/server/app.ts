@@ -8,7 +8,7 @@ import { router as routes } from './routes';
 const app = express();
 
 mongoose.connect(config.mongodbUri);
-mongoose.connection.on('error', () => process.exit());
+mongoose.connection.on('error', (): void => process.exit());
 
 app.set('view engine', 'ejs');
 app.set('views', `${__dirname}/views/pages`);

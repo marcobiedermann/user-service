@@ -4,12 +4,12 @@ import { githubStrategy } from './github';
 import { googleStrategy } from './google';
 import { twitterStrategy } from './twitter';
 
-passport.serializeUser<any, any>((user, done) => {
+passport.serializeUser<any, any>((user, done): void => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id, (error, user) => {
+passport.deserializeUser((id, done): void => {
+  User.findById(id, (error, user): void => {
     done(error, user);
   });
 });
