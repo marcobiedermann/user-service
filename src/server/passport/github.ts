@@ -8,7 +8,7 @@ const githubStrategy = new GithubStrategy(
     clientSecret: config.github.clientSecret,
     callbackURL: config.github.callbackUrl,
   },
-  async (accessToken, refreshToken, profile, done): Promise<void> => {
+  async (accessToken, _refreshToken, profile, done): Promise<void> => {
     try {
       const user = await User.findOne({
         'github.id': profile.id,

@@ -1,9 +1,9 @@
-import * as express from 'express';
+import { Router } from 'express';
 import { router as githubRoute } from './github';
 import { router as googleRoute } from './google';
 import { router as twitterRoute } from './twitter';
 
-const router = express.Router();
+const router = Router();
 const baseRoute = '/connect';
 
 router.use(baseRoute, githubRoute);

@@ -8,7 +8,7 @@ const googleStrategy = new GoogleStrategy(
     clientSecret: config.google.clientSecret,
     callbackURL: config.google.callbackUrl,
   },
-  async (accessToken, refreshToken, profile, done): Promise<void> => {
+  async (accessToken, _refreshToken, profile, done): Promise<void> => {
     try {
       const user = await User.findOne({
         'google.id': profile.id,

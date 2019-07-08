@@ -1,9 +1,9 @@
-import * as express from 'express';
+import { Request, Response, Router } from 'express';
 
-const router = express.Router();
+const router = Router();
 const baseRoute = '/login';
 
-router.route(baseRoute).get((request, response): void => {
+router.route(baseRoute).get((_request: Request, response: Response): void => {
   response.render('login');
 });
 

@@ -2,7 +2,11 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const config = {
+interface IConfig {
+  [key: string]: any;
+}
+
+const config: IConfig = {
   port: process.env.PORT,
   session: {
     secret: process.env.SESSION_SECRET,

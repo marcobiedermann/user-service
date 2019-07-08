@@ -13,6 +13,7 @@
   },
   "parser": "@typescript-eslint/parser",
   "rules": {
+    "@typescript-eslint/interface-name-prefix": 0,
     "import/prefer-default-export": 0
   }
 }
