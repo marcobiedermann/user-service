@@ -1,6 +1,8 @@
 import * as dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({
+  path: `files/env/.env.${process.env.NODE_ENV}`,
+});
 
 interface IConfig {
   port: number;
