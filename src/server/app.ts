@@ -5,23 +5,35 @@ import { config } from './config';
 import { passport } from './passport';
 import { router as routes } from './routes';
 
-const app = express();
-
 mongoose.connect(config.mongodbUri);
 mongoose.connection.on('error', (): void => process.exit());
 
-app.set('view engine', 'ejs');
-app.set('views', `${__dirname}/views/pages`);
+class App {
+  public app: express.Application;
 
-app.use(
-  expressSession({
-    resave: true,
-    saveUninitialized: true,
-    secret: config.session.secret,
-  }),
-);
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(routes);
+  public constructor() {
+    this.app = express();
+
+    this.config();
+  }
+
+  public config(): void {
+    this.app.set('view engine', 'ejs');
+    this.app.set('views', `${__dirname}/views/pages`);
+
+    this.app.use(
+      expressSession({
+        resave: true,
+        saveUninitialized: true,
+        secret: config.session.secret,
+      }),
+    );
+    this.app.use(passport.initialize());
+    this.app.use(passport.session());
+    this.app.use(routes);
+  }
+}
+
+const { app } = new App();
 
 export { app };
