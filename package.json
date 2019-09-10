@@ -1,5 +1,5 @@
 {
-  "name": "express-passport",
+  "name": "user-service",
   "version": "1.0.0",
   "description": "",
   "main": "dist/server/index.js",

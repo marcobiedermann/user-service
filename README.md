@@ -1,5 +1,5 @@
-# Express Passport Demo
+# User Service
 
-[![Build Status](https://travis-ci.org/marcobiedermann/express-passport.svg?branch=master)](https://travis-ci.org/marcobiedermann/express-passport)
-[![dependencies Status](https://img.shields.io/david/marcobiedermann/express-passport.svg)](https://david-dm.org/marcobiedermann/express-passport)
-[![devDependencies Status](https://img.shields.io/david/dev/marcobiedermann/express-passport.svg)](https://david-dm.org/marcobiedermann/express-passport?type=dev)
+[![Build Status](https://travis-ci.org/marcobiedermann/user-service.svg?branch=master)](https://travis-ci.org/marcobiedermann/user-service)
+[![dependencies Status](https://img.shields.io/david/marcobiedermann/user-service.svg)](https://david-dm.org/marcobiedermann/user-service)
+[![devDependencies Status](https://img.shields.io/david/dev/marcobiedermann/user-service.svg)](https://david-dm.org/marcobiedermann/user-service?type=dev)
