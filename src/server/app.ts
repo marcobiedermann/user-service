@@ -1,6 +1,6 @@
-import * as express from 'express';
-import * as expressSession from 'express-session';
-import * as mongoose from 'mongoose';
+import express from 'express';
+import expressSession from 'express-session';
+import mongoose from 'mongoose';
 import { config } from './config';
 import { passport } from './passport';
 import { router as routes } from './routes';
