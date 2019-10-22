@@ -39,7 +39,7 @@
     "@types/node": "^12.11.1",
     "@types/passport": "^1.0.0",
     "@types/passport-github": "^1.1.5",
-    "@types/passport-google-oauth20": "^2.0.1",
+    "@types/passport-google-oauth20": "^2.0.3",
     "@types/passport-twitter": "^1.0.34",
     "@types/swagger-ui-express": "^3.0.1",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
