@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 import { DataTypes, QueryInterface } from 'sequelize';
 
 function down(queryInterface: QueryInterface): Promise<void> {

@@ -37,7 +37,7 @@ OrganizationUser.belongsTo(User);
 TeamUser.belongsTo(Team);
 TeamUser.belongsTo(User);
 
-async function sync(options: SyncOptions) {
+async function sync(options: SyncOptions): Promise<void> {
   await Promise.all([Organization.sync(options), Team.sync(options), User.sync(options)]);
   await Promise.all([OrganizationUser.sync(options), TeamUser.sync(options)]);
 }

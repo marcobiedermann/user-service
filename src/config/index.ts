@@ -6,7 +6,7 @@ dotenv.config({
 
 type Dialects = 'postgres';
 
-interface IPostgres {
+interface Postgres {
   database: string;
   dialect: Dialects;
   host: string;
@@ -15,7 +15,7 @@ interface IPostgres {
   username: string;
 }
 
-interface IConfig {
+interface Config {
   github: {
     clientId: string;
     clientSecret: string;
@@ -27,7 +27,7 @@ interface IConfig {
     callbackUrl: string;
   };
   port: number;
-  postgres: IPostgres;
+  postgres: Postgres;
   twitter: {
     consumerKey: string;
     consumerSecret: string;
@@ -35,7 +35,7 @@ interface IConfig {
   };
 }
 
-const config: IConfig = {
+const config: Config = {
   github: {
     clientId: process.env.GITHUB_CLIENT_ID || '',
     clientSecret: process.env.GITHUB_CLIENT_SECRET || '',

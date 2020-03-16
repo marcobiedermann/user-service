@@ -4,7 +4,15 @@
     "jest": true,
     "node": true
   },
-  "extends": ["airbnb-base", "plugin:jest/all", "plugin:prettier/recommended"],
+  "extends": [
+    "airbnb-base",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jest/all",
+    "plugin:import/typescript",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint"
+  ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "rules": {
