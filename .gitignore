@@ -1,5 +1,5 @@
 dist
 node_modules
-.env.development
-.env.production
-.env.test
+.env*
+!.env.sample
+postgresql

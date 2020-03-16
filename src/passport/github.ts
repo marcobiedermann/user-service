@@ -1,0 +1,35 @@
+import { Strategy as GithubStrategy } from 'passport-github';
+import config from '../config';
+import { createUser, getUser } from '../services/user';
+
+const githubStrategy = new GithubStrategy(
+  {
+    clientID: config.github.clientId,
+    clientSecret: config.github.clientSecret,
+    callbackURL: config.github.callbackUrl,
+    scope: 'user:email',
+  },
+  async (_accessToken, _refreshToken, profile, done): Promise<void> => {
+    try {
+      const user = await getUser({
+        githubId: profile.id,
+      });
+
+      if (!user) {
+        const createdUser = await createUser({
+          mail: profile.emails && profile.emails[0].value,
+          name: profile.displayName,
+          githubId: profile.id,
+        });
+
+        done(null, createdUser);
+      }
+
+      done(null, user);
+    } catch (error) {
+      done(error);
+    }
+  },
+);
+
+export default githubStrategy;
