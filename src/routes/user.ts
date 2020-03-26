@@ -73,16 +73,9 @@ async function getTeamsByUser(request: Request, response: Response): Promise<voi
   });
 }
 
-router
-  .route('/users')
-  .get(getUsers)
-  .post(createUser);
+router.route('/users').get(getUsers).post(createUser);
 
-router
-  .route('/users/:userId')
-  .delete(deleteUser)
-  .get(getUser)
-  .patch(updateUser);
+router.route('/users/:userId').delete(deleteUser).get(getUser).patch(updateUser);
 
 router.route('/users/:userId/organizations').get(getOrganizationsByUser);
 

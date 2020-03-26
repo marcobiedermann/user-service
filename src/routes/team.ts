@@ -62,16 +62,9 @@ async function getUsersByTeam(request: Request, response: Response): Promise<voi
   });
 }
 
-router
-  .route('/teams')
-  .get(getTeams)
-  .post(createTeam);
+router.route('/teams').get(getTeams).post(createTeam);
 
-router
-  .route('/teams/:teamId')
-  .delete(deleteTeam)
-  .get(getTeam)
-  .patch(updateTeam);
+router.route('/teams/:teamId').delete(deleteTeam).get(getTeam).patch(updateTeam);
 
 router.route('/teams/:teamId/users').get(getUsersByTeam);
 
