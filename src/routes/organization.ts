@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
+import createError from 'http-errors';
 import { validateCreateOrganization } from '../middlewares/validation/organization';
 import * as organizationService from '../services/organization';
 import * as teamService from '../services/team';
@@ -19,10 +20,9 @@ async function createOrganization(request: Request, response: Response): Promise
 
 async function deleteOrganization(request: Request, response: Response): Promise<void> {
   const { params } = request;
+  const { organizationId } = params;
 
-  const deletedOrganization = await organizationService.deleteOrganizationById(
-    params.organizationId,
-  );
+  const deletedOrganization = await organizationService.deleteOrganizationById(organizationId);
 
   response.json({
     organization: deletedOrganization,
@@ -31,8 +31,13 @@ async function deleteOrganization(request: Request, response: Response): Promise
 
 async function getOrganization(request: Request, response: Response): Promise<void> {
   const { params } = request;
+  const { organizationId } = params;
 
-  const organization = await organizationService.getOrganizationById(params.organizationId);
+  const organization = await organizationService.getOrganizationById(organizationId);
+
+  if (!organization) {
+    throw createError(400, `Organization ${organizationId} not found`);
+  }
 
   response.json({
     organization,
@@ -49,9 +54,10 @@ async function getOrganizations(_request: Request, response: Response): Promise<
 
 async function updateOrganization(request: Request, response: Response): Promise<void> {
   const { body, params } = request;
+  const { organizationId } = params;
 
   const updatedOrganization = await organizationService.updateOrganizationById(
-    params.organizationId,
+    organizationId,
     body,
   );
 
@@ -62,8 +68,9 @@ async function updateOrganization(request: Request, response: Response): Promise
 
 async function getTeamsByOrganization(request: Request, response: Response): Promise<void> {
   const { params } = request;
+  const { organizationId } = params;
 
-  const teams = await teamService.getTeamsByOrganizationId(params.organizationId);
+  const teams = await teamService.getTeamsByOrganizationId(organizationId);
 
   response.json({
     teams,
@@ -72,8 +79,9 @@ async function getTeamsByOrganization(request: Request, response: Response): Pro
 
 async function getUsersByOrganization(request: Request, response: Response): Promise<void> {
   const { params } = request;
+  const { organizationId } = params;
 
-  const users = await userService.getUsersByOrganizationId(params.organizationId);
+  const users = await userService.getUsersByOrganizationId(organizationId);
 
   response.json({
     users,

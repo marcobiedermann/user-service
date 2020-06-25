@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
+import createError from 'http-errors';
 import * as organizationService from '../services/organization';
 import * as teamService from '../services/team';
 import * as userService from '../services/user';
@@ -18,8 +19,9 @@ async function createUser(request: Request, response: Response): Promise<void> {
 
 async function deleteUser(request: Request, response: Response): Promise<void> {
   const { params } = request;
+  const { userId } = params;
 
-  const deletedUser = await userService.deleteUserById(params.userId);
+  const deletedUser = await userService.deleteUserById(userId);
 
   response.json({
     user: deletedUser,
@@ -28,8 +30,13 @@ async function deleteUser(request: Request, response: Response): Promise<void> {
 
 async function getUser(request: Request, response: Response): Promise<void> {
   const { params } = request;
+  const { userId } = params;
 
-  const user = await userService.getUserById(params.userId);
+  const user = await userService.getUserById(userId);
+
+  if (!user) {
+    throw createError(400, `User ${userId} not found`);
+  }
 
   response.json({
     user,
@@ -46,8 +53,9 @@ async function getUsers(_request: Request, response: Response): Promise<void> {
 
 async function updateUser(request: Request, response: Response): Promise<void> {
   const { body, params } = request;
+  const { userId } = params;
 
-  const updatedUser = await userService.updateUserById(params.userId, body);
+  const updatedUser = await userService.updateUserById(userId, body);
 
   response.json({
     user: updatedUser,
@@ -56,8 +64,9 @@ async function updateUser(request: Request, response: Response): Promise<void> {
 
 async function getOrganizationsByUser(request: Request, response: Response): Promise<void> {
   const { params } = request;
+  const { userId } = params;
 
-  const organizations = await organizationService.getOrganizationsByUserId(params.userId);
+  const organizations = await organizationService.getOrganizationsByUserId(userId);
 
   response.json({
     organizations,
@@ -66,8 +75,9 @@ async function getOrganizationsByUser(request: Request, response: Response): Pro
 
 async function getTeamsByUser(request: Request, response: Response): Promise<void> {
   const { params } = request;
+  const { userId } = params;
 
-  const teams = await teamService.getTeamsByUserId(params.userId);
+  const teams = await teamService.getTeamsByUserId(userId);
 
   response.json({
     teams,

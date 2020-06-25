@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
+import createError from 'http-errors';
 import * as teamService from '../services/team';
 import * as userService from '../services/user';
 
@@ -17,8 +18,9 @@ async function createTeam(request: Request, response: Response): Promise<void> {
 
 async function deleteTeam(request: Request, response: Response): Promise<void> {
   const { params } = request;
+  const { teamId } = params;
 
-  const deletedTeam = await teamService.deleteTeamById(params.teamId);
+  const deletedTeam = await teamService.deleteTeamById(teamId);
 
   response.json({
     team: deletedTeam,
@@ -27,8 +29,13 @@ async function deleteTeam(request: Request, response: Response): Promise<void> {
 
 async function getTeam(request: Request, response: Response): Promise<void> {
   const { params } = request;
+  const { teamId } = params;
 
-  const team = await teamService.getTeamById(params.teamId);
+  const team = await teamService.getTeamById(teamId);
+
+  if (!team) {
+    throw createError(400, `Team ${teamId} not found`);
+  }
 
   response.json({
     team,
@@ -45,8 +52,9 @@ async function getTeams(_request: Request, response: Response): Promise<void> {
 
 async function updateTeam(request: Request, response: Response): Promise<void> {
   const { body, params } = request;
+  const { teamId } = params;
 
-  const updatedTeam = await teamService.updateTeamById(params.teamId, body);
+  const updatedTeam = await teamService.updateTeamById(teamId, body);
 
   response.json({
     team: updatedTeam,
@@ -55,8 +63,9 @@ async function updateTeam(request: Request, response: Response): Promise<void> {
 
 async function getUsersByTeam(request: Request, response: Response): Promise<void> {
   const { params } = request;
+  const { teamId } = params;
 
-  const users = await userService.getUsersByOrganizationId(params.teamId);
+  const users = await userService.getUsersByOrganizationId(teamId);
 
   response.json({
     users,
