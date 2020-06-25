@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import asyncHandler from 'express-async-handler';
 import * as teamService from '../services/team';
 import * as userService from '../services/user';
 
@@ -62,10 +63,14 @@ async function getUsersByTeam(request: Request, response: Response): Promise<voi
   });
 }
 
-router.route('/teams').get(getTeams).post(createTeam);
+router.route('/teams').get(asyncHandler(getTeams)).post(asyncHandler(createTeam));
 
-router.route('/teams/:teamId').delete(deleteTeam).get(getTeam).patch(updateTeam);
+router
+  .route('/teams/:teamId')
+  .delete(asyncHandler(deleteTeam))
+  .get(asyncHandler(getTeam))
+  .patch(updateTeam);
 
-router.route('/teams/:teamId/users').get(getUsersByTeam);
+router.route('/teams/:teamId/users').get(asyncHandler(getUsersByTeam));
 
 export default router;

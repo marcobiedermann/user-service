@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import asyncHandler from 'express-async-handler';
 import { validateCreateOrganization } from '../middlewares/validation/organization';
 import * as organizationService from '../services/organization';
 import * as teamService from '../services/team';
@@ -81,17 +82,17 @@ async function getUsersByOrganization(request: Request, response: Response): Pro
 
 router
   .route('/organizations')
-  .get(getOrganizations)
-  .post(validateCreateOrganization, createOrganization);
+  .get(asyncHandler(getOrganizations))
+  .post(validateCreateOrganization, asyncHandler(createOrganization));
 
 router
   .route('/organizations/:organizationId')
-  .delete(deleteOrganization)
-  .get(getOrganization)
-  .patch(updateOrganization);
+  .delete(asyncHandler(deleteOrganization))
+  .get(asyncHandler(getOrganization))
+  .patch(asyncHandler(updateOrganization));
 
-router.route('/organizations/:organizationId/teams').get(getTeamsByOrganization);
+router.route('/organizations/:organizationId/teams').get(asyncHandler(getTeamsByOrganization));
 
-router.route('/organizations/:organizationId/users').get(getUsersByOrganization);
+router.route('/organizations/:organizationId/users').get(asyncHandler(getUsersByOrganization));
 
 export default router;

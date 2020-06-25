@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import asyncHandler from 'express-async-handler';
 import * as organizationService from '../services/organization';
 import * as teamService from '../services/team';
 import * as userService from '../services/user';
@@ -73,12 +74,16 @@ async function getTeamsByUser(request: Request, response: Response): Promise<voi
   });
 }
 
-router.route('/users').get(getUsers).post(createUser);
+router.route('/users').get(asyncHandler(getUsers)).post(asyncHandler(createUser));
 
-router.route('/users/:userId').delete(deleteUser).get(getUser).patch(updateUser);
+router
+  .route('/users/:userId')
+  .delete(asyncHandler(deleteUser))
+  .get(asyncHandler(getUser))
+  .patch(asyncHandler(updateUser));
 
-router.route('/users/:userId/organizations').get(getOrganizationsByUser);
+router.route('/users/:userId/organizations').get(asyncHandler(getOrganizationsByUser));
 
-router.route('/users/:userId/teams').get(getTeamsByUser);
+router.route('/users/:userId/teams').get(asyncHandler(getTeamsByUser));
 
 export default router;
