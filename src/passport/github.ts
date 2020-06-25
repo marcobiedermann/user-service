@@ -22,12 +22,12 @@ const githubStrategy = new GithubStrategy(
           githubId: profile.id,
         });
 
-        done(null, createdUser);
+        return done(null, createdUser);
       }
 
-      done(null, user);
+      return done(null, user);
     } catch (error) {
-      done(error);
+      return done(error);
     }
   },
 );

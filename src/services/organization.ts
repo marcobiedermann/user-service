@@ -5,7 +5,7 @@ function countOrganizations(where?: WhereOptions): Promise<number> {
   return Organization.count({ where });
 }
 
-function createOrganization(values: object): Promise<Organization> {
+function createOrganization(values: Record<string, unknown>): Promise<Organization> {
   return Organization.create(values);
 }
 
@@ -17,13 +17,13 @@ function deleteOrganizationById(organizationId: string): Promise<number> {
   });
 }
 
-function getOrganization(where: WhereOptions): Promise<Organization> {
+function getOrganization(where: WhereOptions): Promise<Organization | null> {
   return Organization.findOne({
     where,
   });
 }
 
-function getOrganizationById(organizationId: string): Promise<Organization> {
+function getOrganizationById(organizationId: string): Promise<Organization | null> {
   return Organization.findByPk(organizationId);
 }
 
@@ -51,7 +51,7 @@ function getOrganizationsByUserId(userId: string): Promise<Organization[]> {
 
 function updateOrganizationById(
   organizationId: string,
-  values: object,
+  values: Record<string, unknown>,
 ): Promise<[number, Organization[]]> {
   return Organization.update(values, {
     where: {

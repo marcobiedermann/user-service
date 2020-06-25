@@ -5,7 +5,7 @@ function countUsers(where?: WhereOptions): Promise<number> {
   return User.count({ where });
 }
 
-function createUser(values?: object): Promise<User> {
+function createUser(values?: Record<string, unknown>): Promise<User> {
   return User.create(values);
 }
 
@@ -17,13 +17,13 @@ function deleteUserById(userId: string): Promise<number> {
   });
 }
 
-function getUser(where: WhereOptions): Promise<User> {
+function getUser(where: WhereOptions): Promise<User | null> {
   return User.findOne({
     where,
   });
 }
 
-function getUserById(userId: string): Promise<User> {
+function getUserById(userId: string): Promise<User | null> {
   return User.findByPk(userId);
 }
 
@@ -63,7 +63,10 @@ function getUsersByTeamId(teamId: string): Promise<User[]> {
   });
 }
 
-function updateUserById(userId: string, values: object): Promise<[number, User[]]> {
+function updateUserById(
+  userId: string,
+  values: Record<string, unknown>,
+): Promise<[number, User[]]> {
   return User.update(values, {
     where: {
       id: userId,

@@ -21,12 +21,12 @@ const googleStrategy = new GoogleStrategy(
           googleId: profile.id,
         });
 
-        done(undefined, createdUser);
+        return done(undefined, createdUser);
       }
 
-      done(undefined, user);
+      return done(undefined, user);
     } catch (error) {
-      done(error);
+      return done(error);
     }
   },
 );
