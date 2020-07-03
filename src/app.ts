@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser';
 import { errors } from 'celebrate';
+import cors from 'cors';
 import express from 'express';
 import expressSession from 'express-session';
 import helmet from 'helmet';
@@ -11,6 +12,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 app.use(
   expressSession({
     resave: false,
