@@ -38,7 +38,7 @@
     "passport-twitter": "^1.0.4",
     "pg": "^8.2.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.2.3",
+    "sequelize": "^6.2.4",
     "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
@@ -61,7 +61,7 @@
     "@types/validator": "^13.1.0",
     "@typescript-eslint/eslint-plugin": "^3.5.0",
     "@typescript-eslint/parser": "^3.5.0",
-    "eslint": "^7.3.1",
+    "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
@@ -74,7 +74,7 @@
     "rimraf": "^3.0.2",
     "sequelize-cli": "^6.1.0",
     "ts-jest": "^26.1.1",
-    "ts-node-dev": "^1.0.0-pre.49",
-    "typescript": "^3.9.5"
+    "ts-node-dev": "^1.0.0-pre.50",
+    "typescript": "^3.9.6"
   }
 }
