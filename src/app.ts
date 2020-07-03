@@ -5,6 +5,7 @@ import cors from 'cors';
 import express from 'express';
 import expressSession from 'express-session';
 import helmet from 'helmet';
+import path from 'path';
 import config from './config';
 import handleError from './middlewares/error';
 import passport from './passport';
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(compression());
 app.use(cors());
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 app.use(
   expressSession({
     resave: false,
