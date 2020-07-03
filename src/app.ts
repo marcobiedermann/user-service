@@ -5,11 +5,14 @@ import cors from 'cors';
 import express from 'express';
 import expressSession from 'express-session';
 import helmet from 'helmet';
+import config from './config';
 import handleError from './middlewares/error';
 import passport from './passport';
 import routes from './routes';
 
 const app = express();
+
+app.set('port', config.port);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
