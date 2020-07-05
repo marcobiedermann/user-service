@@ -11,6 +11,7 @@ import config from './config';
 import handleError from './middlewares/error';
 import passport from './passport';
 import routes from './routes';
+import { stream } from './utils/logger';
 
 const app = express();
 
@@ -29,7 +30,7 @@ app.use(
   }),
 );
 app.use(helmet());
-app.use(morgan('combined'));
+app.use(morgan('combined', { stream }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);

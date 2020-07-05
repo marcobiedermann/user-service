@@ -4,6 +4,12 @@ dotenv.config({
   path: `files/env/.env.${process.env.NODE_ENV}`,
 });
 
+type Level = 'error' | 'warn' | 'info' | 'http' | 'verbose' | 'debug' | 'silly';
+
+interface Logger {
+  level: Level;
+}
+
 type Dialects = 'postgres';
 
 interface Postgres {
@@ -26,6 +32,7 @@ interface Config {
     clientSecret: string;
     callbackUrl: string;
   };
+  logger: Logger;
   port: number;
   postgres: Postgres;
   twitter: {
@@ -45,6 +52,9 @@ const config: Config = {
     clientId: process.env.GOOGLE_CLIENT_ID || '',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     callbackUrl: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:3000/auth/google/callback',
+  },
+  logger: {
+    level: 'debug',
   },
   port: process.env.PORT ? parseInt(process.env.PORT, 10) : 3000,
   postgres: {

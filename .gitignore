@@ -1,5 +1,6 @@
 dist
 node_modules
+postgresql
 .env*
 !.env.sample
-postgresql
+*.log
