@@ -2,6 +2,7 @@ import { Request, Response, Router } from 'express';
 import apiDocs from './api-docs';
 import authRoutes from './auth';
 import connectRoutes from './connect';
+import healthcheck from './healthcheck';
 import logoutRoutes from './logout';
 import organizationRoutes from './organization';
 import teamRoutes from './team';
@@ -11,12 +12,13 @@ const router = Router();
 
 router.route('/').get((_request: Request, response: Response) => response.redirect('/api-docs'));
 
+router.use(apiDocs);
 router.use(authRoutes);
 router.use(connectRoutes);
+router.use(healthcheck);
 router.use(logoutRoutes);
 router.use(organizationRoutes);
 router.use(teamRoutes);
 router.use(userRoutes);
-router.use(apiDocs);
 
 export default router;
