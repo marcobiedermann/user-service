@@ -5,6 +5,7 @@ import cors from 'cors';
 import express from 'express';
 import expressSession from 'express-session';
 import helmet from 'helmet';
+import morgan from 'morgan';
 import path from 'path';
 import config from './config';
 import handleError from './middlewares/error';
@@ -28,6 +29,7 @@ app.use(
   }),
 );
 app.use(helmet());
+app.use(morgan('combined'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);
