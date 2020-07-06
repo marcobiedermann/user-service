@@ -18,6 +18,8 @@ const googleStrategy = new GoogleStrategy(
 
       if (!user) {
         const createdUser = await createUser({
+          mail: profile.emails && profile.emails[0].value,
+          name: profile.displayName,
           googleId: profile.id,
         });
 
