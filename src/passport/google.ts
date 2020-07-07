@@ -1,8 +1,8 @@
-import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import { Strategy } from 'passport-google-oauth20';
 import config from '../config';
 import { createUser, getUser } from '../services/user';
 
-const googleStrategy = new GoogleStrategy(
+const googleStrategy = new Strategy(
   {
     clientID: config.google.clientId,
     clientSecret: config.google.clientSecret,

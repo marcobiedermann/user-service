@@ -1,8 +1,8 @@
-import { Strategy as TwitterStrategy } from 'passport-twitter';
+import { Strategy } from 'passport-twitter';
 import config from '../config';
 import { createUser, getUser } from '../services/user';
 
-const twitterStrategy = new TwitterStrategy(
+const twitterStrategy = new Strategy(
   {
     consumerKey: config.twitter.consumerKey,
     consumerSecret: config.twitter.consumerSecret,

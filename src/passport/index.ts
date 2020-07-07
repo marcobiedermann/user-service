@@ -2,6 +2,7 @@ import passport from 'passport';
 import { getUserById } from '../services/user';
 import githubStrategy from './github';
 import googleStrategy from './google';
+import jwtStrategy from './jwt';
 import twitterStrategy from './twitter';
 
 passport.serializeUser<any, any>((user, done): void => {
@@ -20,6 +21,7 @@ passport.deserializeUser(
   },
 );
 
+passport.use(jwtStrategy);
 passport.use(githubStrategy);
 passport.use(googleStrategy);
 passport.use(twitterStrategy);

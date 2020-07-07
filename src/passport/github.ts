@@ -1,8 +1,8 @@
-import { Strategy as GithubStrategy } from 'passport-github';
+import { Strategy } from 'passport-github';
 import config from '../config';
 import { createUser, getUser } from '../services/user';
 
-const githubStrategy = new GithubStrategy(
+const githubStrategy = new Strategy(
   {
     clientID: config.github.clientId,
     clientSecret: config.github.clientSecret,
