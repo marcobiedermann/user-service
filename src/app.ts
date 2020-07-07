@@ -8,7 +8,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import path from 'path';
 import config from './config';
-import handleError from './middlewares/error';
+import errorHandler from './middlewares/error';
 import passport from './passport';
 import routes from './routes';
 import { stream } from './utils/logger';
@@ -35,6 +35,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);
 app.use(errors());
-app.use(handleError);
+app.use(errorHandler());
 
 export default app;
