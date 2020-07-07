@@ -1,15 +1,15 @@
 import { Router } from 'express';
-import passport from '../../../passport';
+import passport from '../../../../passport';
 
 const router = Router();
 
-router.route('/twitter').get(
+router.route('/').get(
   passport.authorize('twitter', {
     scope: ['email', 'public_profile'],
   }),
 );
 
-router.route('/twitter/callback').get(
+router.route('/callback').get(
   passport.authorize('twitter', {
     successRedirect: '/profile',
     failureRedirect: '/',

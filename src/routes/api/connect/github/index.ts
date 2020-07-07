@@ -1,15 +1,15 @@
 import { Router } from 'express';
-import passport from '../../../passport';
+import passport from '../../../../passport';
 
 const router = Router();
 
-router.route('/github').get(
+router.route('/').get(
   passport.authorize('github', {
     scope: ['email', 'public_profile'],
   }),
 );
 
-router.route('/github/callback').get(
+router.route('/callback').get(
   passport.authorize('github', {
     successRedirect: '/profile',
     failureRedirect: '/',

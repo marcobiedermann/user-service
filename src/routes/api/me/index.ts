@@ -12,6 +12,6 @@ async function getMe(request: Request, response: Response) {
   });
 }
 
-router.route('/me').get(passport.authenticate('basic'), asyncHandler(getMe));
+router.route('/').get(passport.authenticate('basic'), asyncHandler(getMe));
 
 export default router;

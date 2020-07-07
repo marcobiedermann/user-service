@@ -4,10 +4,9 @@ import googleRoutes from './google';
 import twitterRoutes from './twitter';
 
 const router = Router();
-const baseRoute = '/connect';
 
-router.use(baseRoute, githubRoutes);
-router.use(baseRoute, googleRoutes);
-router.use(baseRoute, twitterRoutes);
+router.use('/github', githubRoutes);
+router.use('/google', googleRoutes);
+router.use('/twitter', twitterRoutes);
 
 export default router;

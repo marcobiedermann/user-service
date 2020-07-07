@@ -1,8 +1,8 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import createError from 'http-errors';
-import * as teamService from '../services/team';
-import * as userService from '../services/user';
+import * as teamService from '../../../services/team';
+import * as userService from '../../../services/user';
 
 const router = Router();
 
@@ -72,14 +72,14 @@ async function getUsersByTeam(request: Request, response: Response): Promise<voi
   });
 }
 
-router.route('/teams').get(asyncHandler(getTeams)).post(asyncHandler(createTeam));
+router.route('/').get(asyncHandler(getTeams)).post(asyncHandler(createTeam));
 
 router
-  .route('/teams/:teamId')
+  .route('/:teamId')
   .delete(asyncHandler(deleteTeam))
   .get(asyncHandler(getTeam))
   .patch(updateTeam);
 
-router.route('/teams/:teamId/users').get(asyncHandler(getUsersByTeam));
+router.route('/:teamId/users').get(asyncHandler(getUsersByTeam));
 
 export default router;

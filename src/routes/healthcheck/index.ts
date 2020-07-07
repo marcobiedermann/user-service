@@ -3,6 +3,6 @@ import expressHealthcheck from 'express-healthcheck';
 
 const router = Router();
 
-router.use('/healthcheck', expressHealthcheck());
+router.use('/', expressHealthcheck());
 
 export default router;

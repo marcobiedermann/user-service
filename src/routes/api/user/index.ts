@@ -1,9 +1,9 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import createError from 'http-errors';
-import * as organizationService from '../services/organization';
-import * as teamService from '../services/team';
-import * as userService from '../services/user';
+import * as organizationService from '../../../services/organization';
+import * as teamService from '../../../services/team';
+import * as userService from '../../../services/user';
 
 const router = Router();
 
@@ -84,16 +84,16 @@ async function getTeamsByUser(request: Request, response: Response): Promise<voi
   });
 }
 
-router.route('/users').get(asyncHandler(getUsers)).post(asyncHandler(createUser));
+router.route('/').get(asyncHandler(getUsers)).post(asyncHandler(createUser));
 
 router
-  .route('/users/:userId')
+  .route('/:userId')
   .delete(asyncHandler(deleteUser))
   .get(asyncHandler(getUser))
   .patch(asyncHandler(updateUser));
 
-router.route('/users/:userId/organizations').get(asyncHandler(getOrganizationsByUser));
+router.route('/:userId/organizations').get(asyncHandler(getOrganizationsByUser));
 
-router.route('/users/:userId/teams').get(asyncHandler(getTeamsByUser));
+router.route('/:userId/teams').get(asyncHandler(getTeamsByUser));
 
 export default router;

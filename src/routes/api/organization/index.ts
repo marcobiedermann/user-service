@@ -1,10 +1,10 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import createError from 'http-errors';
-import { validateCreateOrganization } from '../middlewares/validation/organization';
-import * as organizationService from '../services/organization';
-import * as teamService from '../services/team';
-import * as userService from '../services/user';
+import { validateCreateOrganization } from '../../../middlewares/validation/organization';
+import * as organizationService from '../../../services/organization';
+import * as teamService from '../../../services/team';
+import * as userService from '../../../services/user';
 
 const router = Router();
 
@@ -89,18 +89,18 @@ async function getUsersByOrganization(request: Request, response: Response): Pro
 }
 
 router
-  .route('/organizations')
+  .route('/')
   .get(asyncHandler(getOrganizations))
   .post(validateCreateOrganization, asyncHandler(createOrganization));
 
 router
-  .route('/organizations/:organizationId')
+  .route('/:organizationId')
   .delete(asyncHandler(deleteOrganization))
   .get(asyncHandler(getOrganization))
   .patch(asyncHandler(updateOrganization));
 
-router.route('/organizations/:organizationId/teams').get(asyncHandler(getTeamsByOrganization));
+router.route('/:organizationId/teams').get(asyncHandler(getTeamsByOrganization));
 
-router.route('/organizations/:organizationId/users').get(asyncHandler(getUsersByOrganization));
+router.route('/:organizationId/users').get(asyncHandler(getUsersByOrganization));
 
 export default router;
