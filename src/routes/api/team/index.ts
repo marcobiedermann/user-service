@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import createError from 'http-errors';
 import * as teamService from '../../../services/team';
-import * as userService from '../../../services/user';
+import userRoutes from './user';
 
 const router = Router();
 
@@ -61,17 +61,6 @@ async function updateTeam(request: Request, response: Response): Promise<void> {
   });
 }
 
-async function getUsersByTeam(request: Request, response: Response): Promise<void> {
-  const { params } = request;
-  const { teamId } = params;
-
-  const users = await userService.getUsersByOrganizationId(teamId);
-
-  response.json({
-    users,
-  });
-}
-
 router.route('/').get(asyncHandler(getTeams)).post(asyncHandler(createTeam));
 
 router
@@ -80,6 +69,6 @@ router
   .get(asyncHandler(getTeam))
   .patch(updateTeam);
 
-router.route('/:teamId/users').get(asyncHandler(getUsersByTeam));
+router.use('/:teamId/users', userRoutes);
 
 export default router;
