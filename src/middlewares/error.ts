@@ -2,6 +2,7 @@
 
 import { NextFunction, Request, Response } from 'express';
 import { HttpError } from 'http-errors';
+import logger from '../utils/logger';
 
 function handleError(
   error: HttpError,
@@ -11,10 +12,15 @@ function handleError(
 ): void {
   const { status = 500, message, stack } = error;
 
-  response.status(status).json({
+  logger.error({
     status,
     message,
     stack,
+  });
+
+  response.status(status).json({
+    status,
+    message,
   });
 }
 
