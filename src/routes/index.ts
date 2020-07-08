@@ -7,7 +7,11 @@ import logoutRoutes from './logout';
 
 const router = Router();
 
-router.route('/').get((_request: Request, response: Response) => response.redirect('/api-docs'));
+function getIndexHandler(_request: Request, response: Response) {
+  response.redirect('/api-docs');
+}
+
+router.route('/').get(getIndexHandler);
 
 router.use('/api-docs', apiDocs);
 router.use('/healthcheck', healthcheck);

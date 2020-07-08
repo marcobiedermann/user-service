@@ -8,38 +8,44 @@ import {
   validateGetOrganizations,
   validateUpdateOrganization,
 } from '../../../middlewares/validation/organization';
-import * as organizationService from '../../../services/organization';
+import {
+  createOrganization,
+  deleteOrganizationById,
+  getOrganizationById,
+  getOrganizations,
+  updateOrganizationById,
+} from '../../../services/organization';
 import teamRoutes from './team';
 import userRoutes from './user';
 
 const router = Router();
 
-async function createOrganization(request: Request, response: Response): Promise<void> {
+async function createOrganizationHandler(request: Request, response: Response): Promise<void> {
   const { body } = request;
 
-  const createdOrganization = await organizationService.createOrganization(body);
+  const createdOrganization = await createOrganization(body);
 
   response.json({
     organization: createdOrganization,
   });
 }
 
-async function deleteOrganization(request: Request, response: Response): Promise<void> {
+async function deleteOrganizationHandler(request: Request, response: Response): Promise<void> {
   const { params } = request;
   const { organizationId } = params;
 
-  const deletedOrganization = await organizationService.deleteOrganizationById(organizationId);
+  const deletedOrganization = await deleteOrganizationById(organizationId);
 
   response.json({
     organization: deletedOrganization,
   });
 }
 
-async function getOrganization(request: Request, response: Response): Promise<void> {
+async function getOrganizationHandler(request: Request, response: Response): Promise<void> {
   const { params } = request;
   const { organizationId } = params;
 
-  const organization = await organizationService.getOrganizationById(organizationId);
+  const organization = await getOrganizationById(organizationId);
 
   if (!organization) {
     throw createError(400, `Organization ${organizationId} not found`);
@@ -50,22 +56,19 @@ async function getOrganization(request: Request, response: Response): Promise<vo
   });
 }
 
-async function getOrganizations(_request: Request, response: Response): Promise<void> {
-  const organizations = await organizationService.getOrganizations();
+async function getOrganizationsHandler(_request: Request, response: Response): Promise<void> {
+  const organizations = await getOrganizations();
 
   response.json({
     organizations,
   });
 }
 
-async function updateOrganization(request: Request, response: Response): Promise<void> {
+async function updateOrganizationHandler(request: Request, response: Response): Promise<void> {
   const { body, params } = request;
   const { organizationId } = params;
 
-  const updatedOrganization = await organizationService.updateOrganizationById(
-    organizationId,
-    body,
-  );
+  const updatedOrganization = await updateOrganizationById(organizationId, body);
 
   response.json({
     organization: updatedOrganization,
@@ -74,14 +77,14 @@ async function updateOrganization(request: Request, response: Response): Promise
 
 router
   .route('/')
-  .get(validateGetOrganizations, asyncHandler(getOrganizations))
-  .post(validateCreateOrganization, asyncHandler(createOrganization));
+  .get(validateGetOrganizations, asyncHandler(getOrganizationsHandler))
+  .post(validateCreateOrganization, asyncHandler(createOrganizationHandler));
 
 router
   .route('/:organizationId')
-  .delete(validateDeleteOrganization, asyncHandler(deleteOrganization))
-  .get(validateGetOrganization, asyncHandler(getOrganization))
-  .patch(validateUpdateOrganization, asyncHandler(updateOrganization));
+  .delete(validateDeleteOrganization, asyncHandler(deleteOrganizationHandler))
+  .get(validateGetOrganization, asyncHandler(getOrganizationHandler))
+  .patch(validateUpdateOrganization, asyncHandler(updateOrganizationHandler));
 
 router.use('/:organizationId/teams', validateGetOrganization, teamRoutes);
 router.use('/:organizationId/users', validateGetOrganization, userRoutes);

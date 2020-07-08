@@ -4,7 +4,7 @@ import passport from 'passport';
 
 const router = Router();
 
-async function getMe(request: Request, response: Response) {
+async function getMeHandler(request: Request, response: Response) {
   const { user } = request;
 
   response.json({
@@ -12,6 +12,6 @@ async function getMe(request: Request, response: Response) {
   });
 }
 
-router.route('/').get(passport.authenticate('basic'), asyncHandler(getMe));
+router.route('/').get(passport.authenticate('basic'), asyncHandler(getMeHandler));
 
 export default router;

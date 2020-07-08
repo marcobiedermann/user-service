@@ -8,38 +8,44 @@ import {
   validateGetUsers,
   validateUpdateUser,
 } from '../../../middlewares/validation/user';
-import * as userService from '../../../services/user';
+import {
+  createUser,
+  deleteUserById,
+  getUserById,
+  getUsers,
+  updateUserById,
+} from '../../../services/user';
 import organizationRoutes from './organization';
 import teamRoutes from './team';
 
 const router = Router();
 
-async function createUser(request: Request, response: Response): Promise<void> {
+async function createUserHandler(request: Request, response: Response): Promise<void> {
   const { body } = request;
 
-  const createdUser = await userService.createUser(body);
+  const createdUser = await createUser(body);
 
   response.json({
     user: createdUser,
   });
 }
 
-async function deleteUser(request: Request, response: Response): Promise<void> {
+async function deleteUserHandler(request: Request, response: Response): Promise<void> {
   const { params } = request;
   const { userId } = params;
 
-  const deletedUser = await userService.deleteUserById(userId);
+  const deletedUser = await deleteUserById(userId);
 
   response.json({
     user: deletedUser,
   });
 }
 
-async function getUser(request: Request, response: Response): Promise<void> {
+async function getUserHandler(request: Request, response: Response): Promise<void> {
   const { params } = request;
   const { userId } = params;
 
-  const user = await userService.getUserById(userId);
+  const user = await getUserById(userId);
 
   if (!user) {
     throw createError(400, `User ${userId} not found`);
@@ -50,20 +56,19 @@ async function getUser(request: Request, response: Response): Promise<void> {
   });
 }
 
-async function getUsers(request: Request, response: Response): Promise<void> {
-  console.log({ query: request.query });
-  const users = await userService.getUsers();
+async function getUsersHandler(_request: Request, response: Response): Promise<void> {
+  const users = await getUsers();
 
   response.json({
     users,
   });
 }
 
-async function updateUser(request: Request, response: Response): Promise<void> {
+async function updateUserHandler(request: Request, response: Response): Promise<void> {
   const { body, params } = request;
   const { userId } = params;
 
-  const updatedUser = await userService.updateUserById(userId, body);
+  const updatedUser = await updateUserById(userId, body);
 
   response.json({
     user: updatedUser,
@@ -72,14 +77,14 @@ async function updateUser(request: Request, response: Response): Promise<void> {
 
 router
   .route('/')
-  .get(validateGetUsers, asyncHandler(getUsers))
-  .post(validateCreateUser, asyncHandler(createUser));
+  .get(validateGetUsers, asyncHandler(getUsersHandler))
+  .post(validateCreateUser, asyncHandler(createUserHandler));
 
 router
   .route('/:userId')
-  .delete(validateDeleteUser, asyncHandler(deleteUser))
-  .get(validateGetUser, asyncHandler(getUser))
-  .patch(validateUpdateUser, asyncHandler(updateUser));
+  .delete(validateDeleteUser, asyncHandler(deleteUserHandler))
+  .get(validateGetUser, asyncHandler(getUserHandler))
+  .patch(validateUpdateUser, asyncHandler(updateUserHandler));
 
 router.use('/:userId/organizations', validateGetUser, organizationRoutes);
 router.use('/:userId/teams', validateGetUser, teamRoutes);

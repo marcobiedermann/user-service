@@ -8,37 +8,43 @@ import {
   validateGetTeams,
   validateUpdateTeam,
 } from '../../../middlewares/validation/team';
-import * as teamService from '../../../services/team';
+import {
+  createTeam,
+  deleteTeamById,
+  getTeamById,
+  getTeams,
+  updateTeamById,
+} from '../../../services/team';
 import userRoutes from './user';
 
 const router = Router();
 
-async function createTeam(request: Request, response: Response): Promise<void> {
+async function createTeamHandler(request: Request, response: Response): Promise<void> {
   const { body } = request;
 
-  const createdTeam = await teamService.createTeam(body);
+  const createdTeam = await createTeam(body);
 
   response.json({
     team: createdTeam,
   });
 }
 
-async function deleteTeam(request: Request, response: Response): Promise<void> {
+async function deleteTeamHandler(request: Request, response: Response): Promise<void> {
   const { params } = request;
   const { teamId } = params;
 
-  const deletedTeam = await teamService.deleteTeamById(teamId);
+  const deletedTeam = await deleteTeamById(teamId);
 
   response.json({
     team: deletedTeam,
   });
 }
 
-async function getTeam(request: Request, response: Response): Promise<void> {
+async function getTeamHandler(request: Request, response: Response): Promise<void> {
   const { params } = request;
   const { teamId } = params;
 
-  const team = await teamService.getTeamById(teamId);
+  const team = await getTeamById(teamId);
 
   if (!team) {
     throw createError(400, `Team ${teamId} not found`);
@@ -49,19 +55,19 @@ async function getTeam(request: Request, response: Response): Promise<void> {
   });
 }
 
-async function getTeams(_request: Request, response: Response): Promise<void> {
-  const teams = await teamService.getTeams();
+async function getTeamsHandler(_request: Request, response: Response): Promise<void> {
+  const teams = await getTeams();
 
   response.json({
     teams,
   });
 }
 
-async function updateTeam(request: Request, response: Response): Promise<void> {
+async function updateTeamHandler(request: Request, response: Response): Promise<void> {
   const { body, params } = request;
   const { teamId } = params;
 
-  const updatedTeam = await teamService.updateTeamById(teamId, body);
+  const updatedTeam = await updateTeamById(teamId, body);
 
   response.json({
     team: updatedTeam,
@@ -70,14 +76,14 @@ async function updateTeam(request: Request, response: Response): Promise<void> {
 
 router
   .route('/')
-  .get(validateGetTeams, asyncHandler(getTeams))
-  .post(validateCreateTeam, asyncHandler(createTeam));
+  .get(validateGetTeams, asyncHandler(getTeamsHandler))
+  .post(validateCreateTeam, asyncHandler(createTeamHandler));
 
 router
   .route('/:teamId')
-  .delete(validateDeleteTeam, asyncHandler(deleteTeam))
-  .get(validateGetTeam, asyncHandler(getTeam))
-  .patch(validateUpdateTeam, asyncHandler(updateTeam));
+  .delete(validateDeleteTeam, asyncHandler(deleteTeamHandler))
+  .get(validateGetTeam, asyncHandler(getTeamHandler))
+  .patch(validateUpdateTeam, asyncHandler(updateTeamHandler));
 
 router.use('/:teamId/users', validateGetTeam, userRoutes);
 

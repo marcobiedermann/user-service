@@ -1,13 +1,13 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import { validateGetOrganizations } from '../../../../middlewares/validation/organization';
-import * as organizationService from '../../../../services/organization';
+import { getOrganizationsByUserId } from '../../../../services/organization';
 
-async function getOrganizationsByUser(request: Request, response: Response): Promise<void> {
+async function getOrganizationsByUserHandler(request: Request, response: Response): Promise<void> {
   const { params } = request;
   const { userId } = params;
 
-  const organizations = await organizationService.getOrganizationsByUserId(userId);
+  const organizations = await getOrganizationsByUserId(userId);
 
   response.json({
     organizations,
@@ -16,6 +16,6 @@ async function getOrganizationsByUser(request: Request, response: Response): Pro
 
 const router = Router();
 
-router.route('/').get(validateGetOrganizations, asyncHandler(getOrganizationsByUser));
+router.route('/').get(validateGetOrganizations, asyncHandler(getOrganizationsByUserHandler));
 
 export default router;

@@ -1,13 +1,13 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import { validateGetTeams } from '../../../../middlewares/validation/team';
-import * as teamService from '../../../../services/team';
+import { getTeamsByUserId } from '../../../../services/team';
 
-async function getTeamsByUser(request: Request, response: Response): Promise<void> {
+async function getTeamsByUserHandler(request: Request, response: Response): Promise<void> {
   const { params } = request;
   const { userId } = params;
 
-  const teams = await teamService.getTeamsByUserId(userId);
+  const teams = await getTeamsByUserId(userId);
 
   response.json({
     teams,
@@ -16,6 +16,6 @@ async function getTeamsByUser(request: Request, response: Response): Promise<voi
 
 const router = Router();
 
-router.route('/').get(validateGetTeams, asyncHandler(getTeamsByUser));
+router.route('/').get(validateGetTeams, asyncHandler(getTeamsByUserHandler));
 
 export default router;

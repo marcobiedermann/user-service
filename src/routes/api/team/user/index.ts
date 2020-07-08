@@ -1,13 +1,13 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import { validateGetUsers } from '../../../../middlewares/validation/user';
-import * as userService from '../../../../services/user';
+import { getUsersByOrganizationId } from '../../../../services/user';
 
-async function getUsersByTeam(request: Request, response: Response): Promise<void> {
+async function getUsersByTeamHandler(request: Request, response: Response): Promise<void> {
   const { params } = request;
   const { teamId } = params;
 
-  const users = await userService.getUsersByOrganizationId(teamId);
+  const users = await getUsersByOrganizationId(teamId);
 
   response.json({
     users,
@@ -16,6 +16,6 @@ async function getUsersByTeam(request: Request, response: Response): Promise<voi
 
 const router = Router();
 
-router.route('/').get(validateGetUsers, asyncHandler(getUsersByTeam));
+router.route('/').get(validateGetUsers, asyncHandler(getUsersByTeamHandler));
 
 export default router;
