@@ -18,8 +18,6 @@ import {
 import organizationRoutes from './organization';
 import teamRoutes from './team';
 
-const router = Router();
-
 async function createUserHandler(request: Request, response: Response): Promise<void> {
   const { body } = request;
 
@@ -74,6 +72,8 @@ async function updateUserHandler(request: Request, response: Response): Promise<
     user: updatedUser,
   });
 }
+
+const router = Router();
 
 router
   .route('/')

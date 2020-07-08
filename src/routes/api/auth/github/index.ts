@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import passport from '../../../../passport';
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 router.route('/').get(passport.authenticate('github'));
 

@@ -15,10 +15,9 @@ import {
   getOrganizations,
   updateOrganizationById,
 } from '../../../services/organization';
+import router from '../auth/github';
 import teamRoutes from './team';
 import userRoutes from './user';
-
-const router = Router();
 
 async function createOrganizationHandler(request: Request, response: Response): Promise<void> {
   const { body } = request;
@@ -74,6 +73,8 @@ async function updateOrganizationHandler(request: Request, response: Response): 
     organization: updatedOrganization,
   });
 }
+
+const router = Router();
 
 router
   .route('/')

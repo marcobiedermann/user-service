@@ -14,7 +14,7 @@ async function getTeamsByOrganizationHandler(request: Request, response: Respons
   });
 }
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 router.route('/').get(validateGetTeams, asyncHandler(getTeamsByOrganizationHandler));
 

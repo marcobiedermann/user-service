@@ -14,7 +14,7 @@ async function getUsersByTeamHandler(request: Request, response: Response): Prom
   });
 }
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 router.route('/').get(validateGetUsers, asyncHandler(getUsersByTeamHandler));
 

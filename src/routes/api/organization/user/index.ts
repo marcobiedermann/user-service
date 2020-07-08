@@ -14,7 +14,7 @@ async function getUsersByOrganizationHandler(request: Request, response: Respons
   });
 }
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 router.route('/').get(validateGetUsers, asyncHandler(getUsersByOrganizationHandler));
 

@@ -17,8 +17,6 @@ import {
 } from '../../../services/team';
 import userRoutes from './user';
 
-const router = Router();
-
 async function createTeamHandler(request: Request, response: Response): Promise<void> {
   const { body } = request;
 
@@ -73,6 +71,8 @@ async function updateTeamHandler(request: Request, response: Response): Promise<
     team: updatedTeam,
   });
 }
+
+const router = Router();
 
 router
   .route('/')

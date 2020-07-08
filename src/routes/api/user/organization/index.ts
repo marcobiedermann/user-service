@@ -2,6 +2,7 @@ import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import { validateGetOrganizations } from '../../../../middlewares/validation/organization';
 import { getOrganizationsByUserId } from '../../../../services/organization';
+import router from '../../auth/github';
 
 async function getOrganizationsByUserHandler(request: Request, response: Response): Promise<void> {
   const { params } = request;
@@ -14,7 +15,7 @@ async function getOrganizationsByUserHandler(request: Request, response: Respons
   });
 }
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 router.route('/').get(validateGetOrganizations, asyncHandler(getOrganizationsByUserHandler));
 
