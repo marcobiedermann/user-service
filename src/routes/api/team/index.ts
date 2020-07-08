@@ -1,6 +1,13 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import createError from 'http-errors';
+import {
+  validateCreateTeam,
+  validateDeleteTeam,
+  validateGetTeam,
+  validateGetTeams,
+  validateUpdateTeam,
+} from '../../../middlewares/validation/team';
 import * as teamService from '../../../services/team';
 import userRoutes from './user';
 
@@ -61,14 +68,17 @@ async function updateTeam(request: Request, response: Response): Promise<void> {
   });
 }
 
-router.route('/').get(asyncHandler(getTeams)).post(asyncHandler(createTeam));
+router
+  .route('/')
+  .get(validateGetTeams, asyncHandler(getTeams))
+  .post(validateCreateTeam, asyncHandler(createTeam));
 
 router
   .route('/:teamId')
-  .delete(asyncHandler(deleteTeam))
-  .get(asyncHandler(getTeam))
-  .patch(updateTeam);
+  .delete(validateDeleteTeam, asyncHandler(deleteTeam))
+  .get(validateGetTeam, asyncHandler(getTeam))
+  .patch(validateUpdateTeam, asyncHandler(updateTeam));
 
-router.use('/:teamId/users', userRoutes);
+router.use('/:teamId/users', validateGetTeam, userRoutes);
 
 export default router;

@@ -1,7 +1,13 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import createError from 'http-errors';
-import { validateCreateOrganization } from '../../../middlewares/validation/organization';
+import {
+  validateCreateOrganization,
+  validateDeleteOrganization,
+  validateGetOrganization,
+  validateGetOrganizations,
+  validateUpdateOrganization,
+} from '../../../middlewares/validation/organization';
 import * as organizationService from '../../../services/organization';
 import teamRoutes from './team';
 import userRoutes from './user';
@@ -68,16 +74,16 @@ async function updateOrganization(request: Request, response: Response): Promise
 
 router
   .route('/')
-  .get(asyncHandler(getOrganizations))
+  .get(validateGetOrganizations, asyncHandler(getOrganizations))
   .post(validateCreateOrganization, asyncHandler(createOrganization));
 
 router
   .route('/:organizationId')
-  .delete(asyncHandler(deleteOrganization))
-  .get(asyncHandler(getOrganization))
-  .patch(asyncHandler(updateOrganization));
+  .delete(validateDeleteOrganization, asyncHandler(deleteOrganization))
+  .get(validateGetOrganization, asyncHandler(getOrganization))
+  .patch(validateUpdateOrganization, asyncHandler(updateOrganization));
 
-router.use('/:organizationId/teams', teamRoutes);
-router.use('/:organizationId/users', userRoutes);
+router.use('/:organizationId/teams', validateGetOrganization, teamRoutes);
+router.use('/:organizationId/users', validateGetOrganization, userRoutes);
 
 export default router;

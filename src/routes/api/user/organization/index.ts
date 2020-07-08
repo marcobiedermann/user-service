@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
+import { validateGetOrganizations } from '../../../../middlewares/validation/organization';
 import * as organizationService from '../../../../services/organization';
 
 async function getOrganizationsByUser(request: Request, response: Response): Promise<void> {
@@ -15,6 +16,6 @@ async function getOrganizationsByUser(request: Request, response: Response): Pro
 
 const router = Router();
 
-router.route('/:userId/organizations').get(asyncHandler(getOrganizationsByUser));
+router.route('/').get(validateGetOrganizations, asyncHandler(getOrganizationsByUser));
 
 export default router;

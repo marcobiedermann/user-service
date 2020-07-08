@@ -1,6 +1,13 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import createError from 'http-errors';
+import {
+  validateCreateUser,
+  validateDeleteUser,
+  validateGetUser,
+  validateGetUsers,
+  validateUpdateUser,
+} from '../../../middlewares/validation/user';
 import * as userService from '../../../services/user';
 import organizationRoutes from './organization';
 import teamRoutes from './team';
@@ -43,7 +50,8 @@ async function getUser(request: Request, response: Response): Promise<void> {
   });
 }
 
-async function getUsers(_request: Request, response: Response): Promise<void> {
+async function getUsers(request: Request, response: Response): Promise<void> {
+  console.log({ query: request.query });
   const users = await userService.getUsers();
 
   response.json({
@@ -62,15 +70,18 @@ async function updateUser(request: Request, response: Response): Promise<void> {
   });
 }
 
-router.route('/').get(asyncHandler(getUsers)).post(asyncHandler(createUser));
+router
+  .route('/')
+  .get(validateGetUsers, asyncHandler(getUsers))
+  .post(validateCreateUser, asyncHandler(createUser));
 
 router
   .route('/:userId')
-  .delete(asyncHandler(deleteUser))
-  .get(asyncHandler(getUser))
-  .patch(asyncHandler(updateUser));
+  .delete(validateDeleteUser, asyncHandler(deleteUser))
+  .get(validateGetUser, asyncHandler(getUser))
+  .patch(validateUpdateUser, asyncHandler(updateUser));
 
-router.use('/:userId/organizations', organizationRoutes);
-router.use('/:userId/teams', teamRoutes);
+router.use('/:userId/organizations', validateGetUser, organizationRoutes);
+router.use('/:userId/teams', validateGetUser, teamRoutes);
 
 export default router;

@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
+import { validateGetUsers } from '../../../../middlewares/validation/user';
 import * as userService from '../../../../services/user';
 
 async function getUsersByTeam(request: Request, response: Response): Promise<void> {
@@ -15,6 +16,6 @@ async function getUsersByTeam(request: Request, response: Response): Promise<voi
 
 const router = Router();
 
-router.route('/').get(asyncHandler(getUsersByTeam));
+router.route('/').get(validateGetUsers, asyncHandler(getUsersByTeam));
 
 export default router;

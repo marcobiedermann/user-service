@@ -3,32 +3,34 @@ import { celebrate, Joi, Segments } from 'celebrate';
 const limit = Joi.number().integer().min(0).max(100);
 const page = Joi.number().integer().min(0);
 const order = Joi.string().valid('ASC', 'DESC').uppercase();
-const sort = Joi.string().valid('name').lowercase();
+const sort = Joi.string().valid('mail', 'name').lowercase();
 
 const id = Joi.string().guid({
   version: ['uuidv4'],
 });
+const mail = Joi.string().email().lowercase();
 const name = Joi.string().trim();
 
-const validateCreateOrganization = celebrate({
+const validateCreateUser = celebrate({
   [Segments.BODY]: Joi.object({
+    mail: name.required(),
     name: name.required(),
   }),
 });
 
-const validateDeleteOrganization = celebrate({
+const validateDeleteUser = celebrate({
   [Segments.PARAMS]: Joi.object({
-    organizationId: id.required(),
+    userId: id.required(),
   }),
 });
 
-const validateGetOrganization = celebrate({
+const validateGetUser = celebrate({
   [Segments.PARAMS]: Joi.object({
-    organizationId: id.required(),
+    userId: id.required(),
   }),
 });
 
-const validateGetOrganizations = celebrate({
+const validateGetUsers = celebrate({
   [Segments.QUERY]: Joi.object({
     limit,
     page,
@@ -37,19 +39,20 @@ const validateGetOrganizations = celebrate({
   }).unknown(true),
 });
 
-const validateUpdateOrganization = celebrate({
+const validateUpdateUser = celebrate({
   [Segments.PARAMS]: Joi.object({
-    organizationId: id.required(),
+    userId: id.required(),
   }),
   [Segments.BODY]: Joi.object({
+    mail,
     name,
   }),
 });
 
 export {
-  validateCreateOrganization,
-  validateDeleteOrganization,
-  validateGetOrganization,
-  validateGetOrganizations,
-  validateUpdateOrganization,
+  validateCreateUser,
+  validateDeleteUser,
+  validateGetUser,
+  validateGetUsers,
+  validateUpdateUser,
 };

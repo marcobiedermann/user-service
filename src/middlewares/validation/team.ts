@@ -10,25 +10,25 @@ const id = Joi.string().guid({
 });
 const name = Joi.string().trim();
 
-const validateCreateOrganization = celebrate({
+const validateCreateTeam = celebrate({
   [Segments.BODY]: Joi.object({
     name: name.required(),
   }),
 });
 
-const validateDeleteOrganization = celebrate({
+const validateDeleteTeam = celebrate({
   [Segments.PARAMS]: Joi.object({
-    organizationId: id.required(),
+    teamId: id.required(),
   }),
 });
 
-const validateGetOrganization = celebrate({
+const validateGetTeam = celebrate({
   [Segments.PARAMS]: Joi.object({
-    organizationId: id.required(),
+    teamId: id.required(),
   }),
 });
 
-const validateGetOrganizations = celebrate({
+const validateGetTeams = celebrate({
   [Segments.QUERY]: Joi.object({
     limit,
     page,
@@ -37,9 +37,9 @@ const validateGetOrganizations = celebrate({
   }).unknown(true),
 });
 
-const validateUpdateOrganization = celebrate({
+const validateUpdateTeam = celebrate({
   [Segments.PARAMS]: Joi.object({
-    organizationId: id.required(),
+    teamId: id.required(),
   }),
   [Segments.BODY]: Joi.object({
     name,
@@ -47,9 +47,9 @@ const validateUpdateOrganization = celebrate({
 });
 
 export {
-  validateCreateOrganization,
-  validateDeleteOrganization,
-  validateGetOrganization,
-  validateGetOrganizations,
-  validateUpdateOrganization,
+  validateCreateTeam,
+  validateDeleteTeam,
+  validateGetTeam,
+  validateGetTeams,
+  validateUpdateTeam,
 };
