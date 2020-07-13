@@ -15,7 +15,6 @@ import {
   getOrganizations,
   updateOrganizationById,
 } from '../../../services/organization';
-import router from '../auth/github';
 import teamRoutes from './team';
 import userRoutes from './user';
 
