@@ -1,16 +1,12 @@
 import { Router } from 'express';
-import passport from '../../../../passport';
+import passport from '../../../../../passport';
 
 const router = Router({ mergeParams: true });
 
-router.route('/').get(
-  passport.authenticate('google', {
-    scope: ['email', 'profile'],
-  }),
-);
+router.route('/').get(passport.authenticate('github'));
 
 router.route('/callback').get(
-  passport.authenticate('google', {
+  passport.authenticate('github', {
     successRedirect: '/',
     failureRedirect: '/login',
   }),

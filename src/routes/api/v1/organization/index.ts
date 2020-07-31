@@ -7,14 +7,14 @@ import {
   validateGetOrganization,
   validateGetOrganizations,
   validateUpdateOrganization,
-} from '../../../middlewares/validation/organization';
+} from '../../../../middlewares/validation/organization';
 import {
   createOrganization,
   deleteOrganizationById,
   getOrganizationById,
   getOrganizations,
   updateOrganizationById,
-} from '../../../services/organization';
+} from '../../../../services/organization';
 import teamRoutes from './team';
 import userRoutes from './user';
 

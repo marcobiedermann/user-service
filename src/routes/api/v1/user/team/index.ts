@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
-import { validateGetTeams } from '../../../../middlewares/validation/team';
-import { getTeamsByUserId } from '../../../../services/team';
+import { validateGetTeams } from '../../../../../middlewares/validation/team';
+import { getTeamsByUserId } from '../../../../../services/team';
 
 async function getTeamsByUserHandler(request: Request, response: Response): Promise<void> {
   const { params } = request;

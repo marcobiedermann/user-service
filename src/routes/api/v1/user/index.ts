@@ -7,14 +7,14 @@ import {
   validateGetUser,
   validateGetUsers,
   validateUpdateUser,
-} from '../../../middlewares/validation/user';
+} from '../../../../middlewares/validation/user';
 import {
   createUser,
   deleteUserById,
   getUserById,
   getUsers,
   updateUserById,
-} from '../../../services/user';
+} from '../../../../services/user';
 import organizationRoutes from './organization';
 import teamRoutes from './team';
 

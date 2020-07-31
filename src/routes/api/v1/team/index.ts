@@ -7,14 +7,14 @@ import {
   validateGetTeam,
   validateGetTeams,
   validateUpdateTeam,
-} from '../../../middlewares/validation/team';
+} from '../../../../middlewares/validation/team';
 import {
   createTeam,
   deleteTeamById,
   getTeamById,
   getTeams,
   updateTeamById,
-} from '../../../services/team';
+} from '../../../../services/team';
 import userRoutes from './user';
 
 async function createTeamHandler(request: Request, response: Response): Promise<void> {

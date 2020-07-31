@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import passport from '../../../../passport';
+import passport from '../../../../../passport';
 
 const router = Router({ mergeParams: true });
 
-router.route('/').get(passport.authenticate('github'));
+router.route('/').get(passport.authenticate('twitter'));
 
 router.route('/callback').get(
-  passport.authenticate('github', {
+  passport.authenticate('twitter', {
     successRedirect: '/',
     failureRedirect: '/login',
   }),
