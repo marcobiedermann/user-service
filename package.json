@@ -15,7 +15,7 @@
     "format": "prettier --write '**/*.{css,html,js,jsx,json,md,ts,ts,yml,yaml}'",
     "lint:js": "eslint '**/*.{js,jsx,ts,tsx}'",
     "lint": "npm run lint:js",
-    "postinstall": "npm run build",
+    "postinstall": "npm run build && npm run db:migrate",
     "start": "node ./dist/index.js",
     "test": "jest"
   },
