@@ -6,6 +6,10 @@ const {
   database: { url },
 } = config;
 
+const dialectOptions = {
+  ssl: process.env.NODE_ENV === 'production',
+};
+
 const migrationStorageTableName = 'migrations';
 
 function logging(message: string): void {
@@ -13,11 +17,9 @@ function logging(message: string): void {
 }
 
 const sequelize = new Sequelize(url, {
-  dialectOptions: {
-    ssl: process.env.NODE_ENV === 'production',
-  },
+  dialectOptions,
   logging,
 });
 
 export default sequelize;
-export { url, migrationStorageTableName };
+export { dialectOptions, migrationStorageTableName, url };
