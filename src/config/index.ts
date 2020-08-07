@@ -10,15 +10,8 @@ interface Logger {
   level: Level;
 }
 
-type Dialects = 'postgres';
-
-interface Postgres {
-  database: string;
-  dialect: Dialects;
-  host: string;
-  password: string;
-  port: number;
-  username: string;
+interface Database {
+  url: string;
 }
 
 interface Config {
@@ -37,7 +30,7 @@ interface Config {
   };
   logger: Logger;
   port: number;
-  postgres: Postgres;
+  database: Database;
   twitter: {
     consumerKey: string;
     consumerSecret: string;
@@ -63,13 +56,8 @@ const config: Config = {
     level: 'debug',
   },
   port: process.env.PORT ? parseInt(process.env.PORT, 10) : 3000,
-  postgres: {
-    database: process.env.POSTGRES_DB || 'postgres',
-    dialect: 'postgres',
-    host: process.env.POSTGRES_HOST || 'localhost',
-    password: process.env.POSTGRES_PASSWORD || 'example',
-    port: process.env.POSTGRES_PORT ? parseInt(process.env.POSTGRES_PORT, 10) : 5432,
-    username: process.env.POSTGRES_USER || 'postgres',
+  database: {
+    url: process.env.DATABASE_URL || 'postgresql://postgres:example@localhost:5432',
   },
   twitter: {
     consumerKey: process.env.TWITTER_CONSUMER_KEY || '',

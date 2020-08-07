@@ -3,7 +3,7 @@ import config from '.';
 import logger from '../utils/logger';
 
 const {
-  postgres: { database, dialect, host, password, port, username },
+  database: { url },
 } = config;
 
 const migrationStorageTableName = 'migrations';
@@ -12,15 +12,9 @@ function logging(message: string): void {
   logger.debug(message);
 }
 
-const sequelize = new Sequelize({
-  database,
-  dialect,
+const sequelize = new Sequelize(url, {
   logging,
-  password,
-  port,
-  username,
-  host,
 });
 
 export default sequelize;
-export { database, dialect, host, migrationStorageTableName, password, port, username };
+export { url, migrationStorageTableName };
