@@ -7,6 +7,7 @@ const {
 } = config;
 
 const dialectOptions = {
+  rejectUnauthorized: false,
   ssl: process.env.NODE_ENV === 'production',
 };
 
