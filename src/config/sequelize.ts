@@ -13,6 +13,9 @@ function logging(message: string): void {
 }
 
 const sequelize = new Sequelize(url, {
+  dialectOptions: {
+    ssl: process.env.NODE_ENV === 'production',
+  },
   logging,
 });
 
