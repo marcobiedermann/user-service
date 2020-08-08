@@ -60,7 +60,7 @@
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "content": {
               "application/json": {
                 "schema": {
@@ -91,7 +91,10 @@
               "format": "uuid"
             }
           }
-        ]
+        ],
+        "responses": {
+          "204": {}
+        }
       },
       "get": {
         "summary": "Get organization by ID",
@@ -285,7 +288,7 @@
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "content": {
               "application/json": {
                 "schema": {
@@ -316,7 +319,10 @@
               "format": "uuid"
             }
           }
-        ]
+        ],
+        "responses": {
+          "204": {}
+        }
       },
       "get": {
         "summary": "Get team by ID",
@@ -478,7 +484,7 @@
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "content": {
               "application/json": {
                 "schema": {
@@ -509,7 +515,10 @@
               "format": "uuid"
             }
           }
-        ]
+        ],
+        "responses": {
+          "204": {}
+        }
       },
       "get": {
         "summary": "Get user by ID",

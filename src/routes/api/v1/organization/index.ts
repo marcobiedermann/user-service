@@ -23,7 +23,7 @@ async function createOrganizationHandler(request: Request, response: Response): 
 
   const createdOrganization = await createOrganization(body);
 
-  response.json({
+  response.status(201).json({
     organization: createdOrganization,
   });
 }
@@ -32,11 +32,9 @@ async function deleteOrganizationHandler(request: Request, response: Response): 
   const { params } = request;
   const { organizationId } = params;
 
-  const deletedOrganization = await deleteOrganizationById(organizationId);
+  await deleteOrganizationById(organizationId);
 
-  response.json({
-    organization: deletedOrganization,
-  });
+  response.sendStatus(204);
 }
 
 async function getOrganizationHandler(request: Request, response: Response): Promise<void> {

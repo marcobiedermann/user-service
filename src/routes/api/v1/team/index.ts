@@ -22,7 +22,7 @@ async function createTeamHandler(request: Request, response: Response): Promise<
 
   const createdTeam = await createTeam(body);
 
-  response.json({
+  response.status(201).json({
     team: createdTeam,
   });
 }
@@ -31,11 +31,9 @@ async function deleteTeamHandler(request: Request, response: Response): Promise<
   const { params } = request;
   const { teamId } = params;
 
-  const deletedTeam = await deleteTeamById(teamId);
+  await deleteTeamById(teamId);
 
-  response.json({
-    team: deletedTeam,
-  });
+  response.sendStatus(204);
 }
 
 async function getTeamHandler(request: Request, response: Response): Promise<void> {

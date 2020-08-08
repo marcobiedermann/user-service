@@ -23,7 +23,7 @@ async function createUserHandler(request: Request, response: Response): Promise<
 
   const createdUser = await createUser(body);
 
-  response.json({
+  response.status(201).json({
     user: createdUser,
   });
 }
@@ -32,11 +32,9 @@ async function deleteUserHandler(request: Request, response: Response): Promise<
   const { params } = request;
   const { userId } = params;
 
-  const deletedUser = await deleteUserById(userId);
+  await deleteUserById(userId);
 
-  response.json({
-    user: deletedUser,
-  });
+  response.sendStatus(204);
 }
 
 async function getUserHandler(request: Request, response: Response): Promise<void> {
