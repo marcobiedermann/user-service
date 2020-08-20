@@ -57,7 +57,7 @@ const config: Config = {
   },
   port: process.env.PORT ? parseInt(process.env.PORT, 10) : 3000,
   database: {
-    url: process.env.DATABASE_URL || 'postgresql://postgres:example@localhost:5432',
+    url: process.env.DATABASE_URL || 'postgresql://postgres:example@localhost:5432/postgres',
   },
   twitter: {
     consumerKey: process.env.TWITTER_CONSUMER_KEY || '',
