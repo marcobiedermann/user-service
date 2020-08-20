@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
+import faker from 'faker';
 import { QueryInterface } from 'sequelize';
 
 function down(queryInterface: QueryInterface): Promise<object> {
-  return queryInterface.bulkDelete('Team', {});
+  return queryInterface.bulkDelete('teams', {});
 }
 
 function up(queryInterface: QueryInterface): Promise<number | object> {
-  return queryInterface.bulkInsert('Team', [
+  return queryInterface.bulkInsert('teams', [
     {
-      name: 'Mobility Benefits Squad',
+      name: faker.commerce.department(),
     },
   ]);
 }
