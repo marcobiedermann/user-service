@@ -17,6 +17,7 @@ interface Database {
 }
 
 interface Config {
+  env: string;
   github: {
     clientId: string;
     clientSecret: string;
@@ -41,6 +42,7 @@ interface Config {
 }
 
 const config: Config = {
+  env,
   github: {
     clientId: process.env.GITHUB_CLIENT_ID || '',
     clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
