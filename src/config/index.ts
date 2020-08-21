@@ -1,7 +1,9 @@
 import dotenv from 'dotenv';
 
+const env = process.env.NODE_ENV || 'development';
+
 dotenv.config({
-  path: `files/env/.env.${process.env.NODE_ENV}`,
+  path: `files/env/.env.${env}`,
 });
 
 type Level = 'error' | 'warn' | 'info' | 'http' | 'verbose' | 'debug' | 'silly';
