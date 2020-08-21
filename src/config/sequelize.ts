@@ -22,5 +22,14 @@ const sequelize = new Sequelize(url, {
   logging,
 });
 
+sequelize
+  .authenticate()
+  .then(() => {
+    logger.info('Connection has been established successfully');
+  })
+  .catch((error) => {
+    logger.error('Unable to connect to the database: ', error);
+  });
+
 export default sequelize;
 export { dialectOptions, migrationStorageTableName, url };
