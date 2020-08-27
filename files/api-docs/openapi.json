@@ -5,6 +5,11 @@
     "description": "User service API",
     "version": "1.0.0"
   },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
   "tags": [
     {
       "name": "organization"
@@ -17,7 +22,7 @@
     }
   ],
   "paths": {
-    "/api/v1/organizations": {
+    "/organizations": {
       "get": {
         "summary": "Get all organizations",
         "tags": ["organization"],
@@ -77,7 +82,7 @@
         }
       }
     },
-    "/api/v1/organizations/{organizationId}": {
+    "/organizations/{organizationId}": {
       "delete": {
         "summary": "Delete organization by ID",
         "tags": ["organization"],
@@ -173,7 +178,7 @@
         }
       }
     },
-    "/api/v1/organizations/{organizationId}/teams": {
+    "/organizations/{organizationId}/teams": {
       "get": {
         "summary": "Get teams by organization ID",
         "tags": ["organization", "team"],
@@ -209,7 +214,7 @@
         }
       }
     },
-    "/api/v1/organizations/{organizationId}/users": {
+    "/organizations/{organizationId}/users": {
       "get": {
         "summary": "Get users by organization ID",
         "tags": ["organization", "user"],
@@ -245,7 +250,7 @@
         }
       }
     },
-    "/api/v1/teams": {
+    "/teams": {
       "get": {
         "summary": "Get all teams",
         "tags": ["team"],
@@ -305,7 +310,7 @@
         }
       }
     },
-    "/api/v1/teams/{teamId}": {
+    "/teams/{teamId}": {
       "delete": {
         "summary": "Delete team by ID",
         "tags": ["team"],
@@ -401,7 +406,7 @@
         }
       }
     },
-    "/api/v1/teams/{teamId}/users": {
+    "/teams/{teamId}/users": {
       "get": {
         "summary": "Get users by team ID",
         "tags": ["team", "user"],
@@ -437,7 +442,7 @@
         }
       }
     },
-    "/api/v1/users": {
+    "/users": {
       "get": {
         "summary": "Get all users",
         "tags": ["user"],
@@ -501,7 +506,7 @@
         }
       }
     },
-    "/api/v1/users/{userId}": {
+    "/users/{userId}": {
       "delete": {
         "summary": "Delete user by ID",
         "tags": ["user"],
@@ -601,7 +606,7 @@
         }
       }
     },
-    "/api/v1/users/{userId}/organizations": {
+    "/users/{userId}/organizations": {
       "get": {
         "summary": "Get organizations by user ID",
         "tags": ["organization", "user"],
@@ -637,7 +642,7 @@
         }
       }
     },
-    "/api/v1/users/{userId}/teams": {
+    "/users/{userId}/teams": {
       "get": {
         "summary": "Get teams by user ID",
         "tags": ["team", "user"],
