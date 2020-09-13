@@ -12,7 +12,7 @@
     "develop": "ts-node-dev --respawn --transpile-only ./src/index.ts",
     "fix:js": "npm run lint:js -- --fix",
     "fix": "npm run fix:js",
-    "format": "prettier --write '**/*.{css,html,js,jsx,json,md,ts,ts,yml,yaml}'",
+    "format": "prettier --write .",
     "heroku-postbuild": "npm run build && npm run db:migrate",
     "lint:js": "eslint '**/*.{js,jsx,ts,tsx}'",
     "lint": "npm run lint:js",
