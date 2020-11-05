@@ -18,8 +18,7 @@
     "lint": "npm run lint:js",
     "report-coverage": "codecov",
     "start": "node ./dist/index.js",
-    "test": "jest",
-    "test:ci": "npm test && codecov"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
