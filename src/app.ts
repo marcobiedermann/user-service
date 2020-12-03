@@ -18,10 +18,18 @@ const app = express();
 app.set('port', config.port);
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  }),
+);
 app.use(compression());
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+app.use(
+  express.static(path.join(__dirname, 'public'), {
+    maxAge: 31557600000, // 1000 * 60 * 60 * 24 * 365.25
+  }),
+);
 app.use(
   expressSession({
     resave: false,
@@ -30,7 +38,11 @@ app.use(
   }),
 );
 app.use(helmet());
-app.use(morgan('combined', { stream }));
+app.use(
+  morgan('combined', {
+    stream,
+  }),
+);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);
