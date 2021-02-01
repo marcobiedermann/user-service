@@ -45,7 +45,7 @@
     "passport-twitter": "^1.0.4",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.3.5",
+    "sequelize": "^6.5.0",
     "swagger-ui-express": "^4.1.6",
     "winston": "^3.3.3"
   },
