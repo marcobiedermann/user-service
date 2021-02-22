@@ -1,6 +1,7 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import createError from 'http-errors';
+import { StatusCodes } from 'http-status-codes';
 import {
   validateCreateTeam,
   validateDeleteTeam,
@@ -22,7 +23,7 @@ async function createTeamHandler(request: Request, response: Response): Promise<
 
   const createdTeam = await createTeam(body);
 
-  response.status(201).json({
+  response.status(StatusCodes.CREATED).json({
     team: createdTeam,
   });
 }
@@ -33,7 +34,7 @@ async function deleteTeamHandler(request: Request, response: Response): Promise<
 
   await deleteTeamById(teamId);
 
-  response.sendStatus(204);
+  response.sendStatus(StatusCodes.NO_CONTENT);
 }
 
 async function getTeamHandler(request: Request, response: Response): Promise<void> {
@@ -43,7 +44,7 @@ async function getTeamHandler(request: Request, response: Response): Promise<voi
   const team = await getTeamById(teamId);
 
   if (!team) {
-    throw createError(400, `Team ${teamId} not found`);
+    throw createError(StatusCodes.BAD_REQUEST, `Team ${teamId} not found`);
   }
 
   response.json({

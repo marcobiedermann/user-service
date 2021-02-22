@@ -1,6 +1,7 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import createError from 'http-errors';
+import { StatusCodes } from 'http-status-codes';
 import {
   validateCreateOrganization,
   validateDeleteOrganization,
@@ -23,7 +24,7 @@ async function createOrganizationHandler(request: Request, response: Response): 
 
   const createdOrganization = await createOrganization(body);
 
-  response.status(201).json({
+  response.status(StatusCodes.CREATED).json({
     organization: createdOrganization,
   });
 }
@@ -34,7 +35,7 @@ async function deleteOrganizationHandler(request: Request, response: Response): 
 
   await deleteOrganizationById(organizationId);
 
-  response.sendStatus(204);
+  response.sendStatus(StatusCodes.NO_CONTENT);
 }
 
 async function getOrganizationHandler(request: Request, response: Response): Promise<void> {
@@ -44,7 +45,7 @@ async function getOrganizationHandler(request: Request, response: Response): Pro
   const organization = await getOrganizationById(organizationId);
 
   if (!organization) {
-    throw createError(400, `Organization ${organizationId} not found`);
+    throw createError(StatusCodes.BAD_REQUEST, `Organization ${organizationId} not found`);
   }
 
   response.json({

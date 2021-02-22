@@ -1,6 +1,7 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import createError from 'http-errors';
+import { StatusCodes } from 'http-status-codes';
 import {
   validateCreateUser,
   validateDeleteUser,
@@ -23,7 +24,7 @@ async function createUserHandler(request: Request, response: Response): Promise<
 
   const createdUser = await createUser(body);
 
-  response.status(201).json({
+  response.status(StatusCodes.CREATED).json({
     user: createdUser,
   });
 }
@@ -34,7 +35,7 @@ async function deleteUserHandler(request: Request, response: Response): Promise<
 
   await deleteUserById(userId);
 
-  response.sendStatus(204);
+  response.sendStatus(StatusCodes.NO_CONTENT);
 }
 
 async function getUserHandler(request: Request, response: Response): Promise<void> {
@@ -44,7 +45,7 @@ async function getUserHandler(request: Request, response: Response): Promise<voi
   const user = await getUserById(userId);
 
   if (!user) {
-    throw createError(400, `User ${userId} not found`);
+    throw createError(StatusCodes.BAD_REQUEST, `User ${userId} not found`);
   }
 
   response.json({
