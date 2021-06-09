@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 const env = process.env.NODE_ENV || 'development';
 
 dotenv.config({
-  path: `files/env/.env.${env}`,
+  path: `.env.${env}`,
 });
 
 type Level = 'error' | 'warn' | 'info' | 'http' | 'verbose' | 'debug' | 'silly';

@@ -19,21 +19,19 @@ passport.serializeUser<string>((user, done): void => {
   done(null, user.id);
 });
 
-passport.deserializeUser(
-  async (id: string, done): Promise<void> => {
-    try {
-      const user = await getUserById(id);
+passport.deserializeUser(async (id: string, done): Promise<void> => {
+  try {
+    const user = await getUserById(id);
 
-      if (!user) {
-        throw new Error('User could not be found');
-      }
-
-      return done(null, user);
-    } catch (error) {
-      return done(error);
+    if (!user) {
+      throw new Error('User could not be found');
     }
-  },
-);
+
+    return done(null, user);
+  } catch (error) {
+    return done(error);
+  }
+});
 
 passport.use(jwtStrategy);
 passport.use(githubStrategy);

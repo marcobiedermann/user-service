@@ -11,7 +11,7 @@
     "plugin:jest/all",
     "plugin:import/typescript",
     "plugin:prettier/recommended",
-    "prettier/@typescript-eslint"
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
