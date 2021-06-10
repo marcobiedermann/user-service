@@ -19,7 +19,8 @@
     "prepare": "husky install",
     "pretty-quick": "pretty-quick --staged",
     "start": "node ./dist/index.js",
-    "test": "jest"
+    "test": "jest --color --runInBand",
+    "test:ci": "npm run test -- --ci"
   },
   "keywords": [],
   "author": "",
