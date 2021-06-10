@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import { errors } from 'celebrate';
 import compression from 'compression';
 import cors from 'cors';
@@ -17,12 +16,8 @@ const app = express();
 
 app.set('port', config.port);
 
-app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: false,
-  }),
-);
+app.use(express.json());
+app.use(express.urlencoded());
 app.use(compression());
 app.use(cors());
 app.use(
