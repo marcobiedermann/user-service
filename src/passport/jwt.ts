@@ -5,7 +5,7 @@ import { getUserById } from '../services/user';
 const jwtStrategy = new Strategy(
   {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: config.jwt.secret,
+    secretOrKey: config.jwt.accessToken.secret,
   },
   async (payload, done) => {
     const { sub } = payload;

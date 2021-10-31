@@ -29,7 +29,14 @@ interface Config {
     callbackUrl: string;
   };
   jwt: {
-    secret: string;
+    accessToken: {
+      expiresIn: string;
+      secret: string;
+    };
+    refreshToken: {
+      expiresIn: string;
+      secret: string;
+    };
   };
   logger: Logger;
   port: number;
@@ -57,7 +64,14 @@ const config: Config = {
     callbackUrl: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:3000/auth/google/callback',
   },
   jwt: {
-    secret: process.env.JWT_SECRET || 'by86R8RnyNRBa46fXkd77b99M6WzD96W',
+    accessToken: {
+      expiresIn: '1h',
+      secret: process.env.ACCESS_TOKEN_SECRET || '',
+    },
+    refreshToken: {
+      expiresIn: '7d',
+      secret: process.env.REFRESH_TOKEN_SECRET || '',
+    },
   },
   logger: {
     level: 'debug',
