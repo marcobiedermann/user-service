@@ -45,7 +45,7 @@ async function getUserHandler(request: Request, response: Response): Promise<voi
   const user = await getUserById(userId);
 
   if (!user) {
-    throw createError(StatusCodes.BAD_REQUEST, `User ${userId} not found`);
+    throw createError(StatusCodes.NOT_FOUND, `User ${userId} not found`);
   }
 
   response.json({
