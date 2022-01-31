@@ -54,6 +54,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
+    "@faker-js/faker": "^6.0.0-alpha.5",
     "@types/compression": "^1.7.1",
     "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
