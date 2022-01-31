@@ -1,5 +1,5 @@
-import { randomUUID } from 'crypto';
 import supertest from 'supertest';
+import faker from '@faker-js/faker';
 import app from '../../../../../app';
 import * as userService from '../../../../../services/user';
 
@@ -13,8 +13,61 @@ describe('routes/api/v1', () => {
       const response = await supertest(app).get('/api/v1/users');
 
       expect(response.status).toStrictEqual(200);
-      expect(response.body).toHaveProperty('users');
       expect(response.body.users).toHaveLength(1);
+      expect(response.body.users).toContainEqual({
+        id: expect.any(String),
+        mail: 'john.doe@gmail.com',
+        name: 'John Doe',
+      });
+    });
+  });
+
+  describe('post /users/', () => {
+    it('should create a single user', async () => {
+      expect.assertions(3);
+
+      const userAttributes = {
+        mail: faker.internet.email(),
+        name: faker.name.findName(),
+      };
+
+      const response = await supertest(app).post('/api/v1/users').send(userAttributes);
+
+      expect(response.status).toStrictEqual(201);
+      expect(response.body.user.mail).toStrictEqual(userAttributes.mail);
+      expect(response.body.user.name).toStrictEqual(userAttributes.name);
+    });
+
+    it('should throw an error if `mail` is missing', async () => {
+      expect.assertions(3);
+
+      const userAttributes = {
+        name: faker.name.findName(),
+      };
+
+      const response = await supertest(app).post('/api/v1/users').send(userAttributes);
+
+      expect(response.status).toStrictEqual(400);
+      expect(response.body.error).toStrictEqual('Bad Request');
+      expect(response.body.validation.body.message).toMatchInlineSnapshot(
+        `"\\"mail\\" is required"`,
+      );
+    });
+
+    it('should throw an error if `name` is missing', async () => {
+      expect.assertions(3);
+
+      const userAttributes = {
+        mail: faker.internet.email(),
+      };
+
+      const response = await supertest(app).post('/api/v1/users').send(userAttributes);
+
+      expect(response.status).toStrictEqual(400);
+      expect(response.body.error).toStrictEqual('Bad Request');
+      expect(response.body.validation.body.message).toMatchInlineSnapshot(
+        `"\\"name\\" is required"`,
+      );
     });
   });
 
@@ -22,7 +75,7 @@ describe('routes/api/v1', () => {
     it('should delete a single user', async () => {
       expect.assertions(2);
 
-      const userId = randomUUID();
+      const userId = faker.datatype.uuid();
       const response = await supertest(app).delete(`/api/v1/users/${userId}`);
 
       expect(response.status).toStrictEqual(204);
@@ -47,11 +100,11 @@ describe('routes/api/v1', () => {
     it('should return a single user', async () => {
       expect.assertions(2);
 
-      const userId = randomUUID();
+      const userId = faker.datatype.uuid();
       const response = await supertest(app).get(`/api/v1/users/${userId}`);
 
       expect(response.status).toStrictEqual(200);
-      expect(response.body).toHaveProperty('user');
+      expect(response.body.user.id).toStrictEqual(userId);
     });
 
     it('should throw an error if `userId` is not a `UUID`', async () => {
@@ -74,7 +127,7 @@ describe('routes/api/v1', () => {
         .spyOn(userService, 'getUserById')
         .mockImplementation(() => Promise.resolve(null));
 
-      const userId = randomUUID();
+      const userId = faker.datatype.uuid();
       const response = await supertest(app).get(`/api/v1/users/${userId}`);
 
       expect(response.status).toStrictEqual(404);
@@ -85,15 +138,18 @@ describe('routes/api/v1', () => {
 
   describe('patch /users/:userId', () => {
     it('should update a single user', async () => {
-      expect.assertions(2);
+      expect.assertions(3);
 
-      const userId = randomUUID();
-      const response = await supertest(app).patch(`/api/v1/users/${userId}`).send({
-        name: 'Jane',
-      });
+      const userId = faker.datatype.uuid();
+      const userAttributes = {
+        name: faker.name.findName(),
+      };
+
+      const response = await supertest(app).patch(`/api/v1/users/${userId}`).send(userAttributes);
 
       expect(response.status).toStrictEqual(200);
-      expect(response.body).toHaveProperty('user');
+      expect(response.body.user.id).toStrictEqual(userId);
+      expect(response.body.user.name).toStrictEqual(userAttributes.name);
     });
 
     it('should throw an error if `userId` is not a `UUID`', async () => {

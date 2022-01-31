@@ -45,7 +45,7 @@ async function getOrganizationHandler(request: Request, response: Response): Pro
   const organization = await getOrganizationById(organizationId);
 
   if (!organization) {
-    throw createError(StatusCodes.BAD_REQUEST, `Organization ${organizationId} not found`);
+    throw createError(StatusCodes.NOT_FOUND, `Organization ${organizationId} not found`);
   }
 
   response.json({

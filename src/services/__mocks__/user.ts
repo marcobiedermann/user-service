@@ -1,4 +1,15 @@
-import user, { User } from '../../models/__fixtures__/user';
+import user, {
+  User,
+  UserCreationAttributes,
+  UserUpdateAttributes,
+} from '../../models/__fixtures__/user';
+
+function createUser(attributes: UserCreationAttributes): Promise<User> {
+  return Promise.resolve({
+    ...user,
+    ...attributes,
+  });
+}
 
 function deleteUserById(): Promise<number> {
   return Promise.resolve(1);
@@ -8,12 +19,35 @@ function getUsers(): Promise<User[]> {
   return Promise.resolve([user]);
 }
 
-function getUserById(): Promise<User> {
-  return Promise.resolve(user);
+function getUserById(userId: string): Promise<User> {
+  return Promise.resolve({
+    ...user,
+    id: userId,
+  });
 }
 
-function updateUserById(): Promise<User> {
-  return Promise.resolve(user);
+function getUsersByOrganizationId(): Promise<User[]> {
+  return Promise.resolve([user]);
 }
 
-export { deleteUserById, getUsers, getUserById, updateUserById };
+function getUsersByTeamId(): Promise<User[]> {
+  return Promise.resolve([user]);
+}
+
+function updateUserById(userId: string, attributes: UserUpdateAttributes): Promise<User> {
+  return Promise.resolve({
+    ...user,
+    id: userId,
+    ...attributes,
+  });
+}
+
+export {
+  createUser,
+  deleteUserById,
+  getUsers,
+  getUserById,
+  getUsersByOrganizationId,
+  getUsersByTeamId,
+  updateUserById,
+};

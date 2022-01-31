@@ -44,7 +44,7 @@ async function getTeamHandler(request: Request, response: Response): Promise<voi
   const team = await getTeamById(teamId);
 
   if (!team) {
-    throw createError(StatusCodes.BAD_REQUEST, `Team ${teamId} not found`);
+    throw createError(StatusCodes.NOT_FOUND, `Team ${teamId} not found`);
   }
 
   response.json({
