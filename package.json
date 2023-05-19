@@ -13,7 +13,6 @@
     "fix:js": "npm run lint:js -- --fix",
     "fix": "npm run fix:js",
     "format": "prettier --ignore-path .gitignore --write .",
-    "heroku-postbuild": "npm run build && npm run db:migrate",
     "lint:js": "eslint --ignore-path .gitignore '**/*.{js,ts}'",
     "lint": "npm run lint:js",
     "prepare": "husky install",
