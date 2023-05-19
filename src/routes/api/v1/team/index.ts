@@ -29,8 +29,9 @@ async function createTeamHandler(request: Request, response: Response): Promise<
 }
 
 async function deleteTeamHandler(request: Request, response: Response): Promise<void> {
-  const { params } = request;
-  const { teamId } = params;
+  const {
+    params: { teamId },
+  } = request;
 
   await deleteTeamById(teamId);
 
@@ -38,8 +39,9 @@ async function deleteTeamHandler(request: Request, response: Response): Promise<
 }
 
 async function getTeamHandler(request: Request, response: Response): Promise<void> {
-  const { params } = request;
-  const { teamId } = params;
+  const {
+    params: { teamId },
+  } = request;
 
   const team = await getTeamById(teamId);
 
@@ -61,8 +63,10 @@ async function getTeamsHandler(_request: Request, response: Response): Promise<v
 }
 
 async function updateTeamHandler(request: Request, response: Response): Promise<void> {
-  const { body, params } = request;
-  const { teamId } = params;
+  const {
+    body,
+    params: { teamId },
+  } = request;
 
   const updatedTeam = await updateTeamById(teamId, body);
 

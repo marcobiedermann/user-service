@@ -10,19 +10,23 @@ const twitterStrategy = new Strategy(
     includeEmail: true,
   },
   async (accessToken, refreshToken, profile, done): Promise<void> => {
-    console.log({ accessToken, refreshToken, profile });
+    console.log({ accessToken, refreshToken, profile: JSON.stringify(profile) });
 
     try {
       const user = await getUser({
         twitterId: profile.id,
       });
 
+      console.log({ user });
+
       if (!user) {
         const createdUser = await createUser({
-          mail: profile.emails && profile.emails[0].value,
+          mail: (profile.emails && profile.emails[0].value) || '',
           name: profile.displayName,
           twitterId: profile.id,
         });
+
+        console.log({ createdUser });
 
         return done(null, createdUser);
       }

@@ -1,84 +1,107 @@
-import { FindOptions, WhereOptions } from 'sequelize';
-import { Organization, Team, User } from '../models';
+import { User } from '@prisma/client';
+import prisma from '../config/prisma';
 
-function countUsers(where?: WhereOptions): Promise<number> {
-  return User.count({ where });
+async function createUser(data: {
+  mail: string;
+  name: string;
+  githubId?: string;
+  googleId?: string;
+  twitterId?: string;
+}): Promise<User> {
+  const createdUser = await prisma.user.create({
+    data,
+  });
+
+  return createdUser;
 }
 
-function createUser(values?: Record<string, unknown>): Promise<User> {
-  return User.create(values);
-}
-
-function deleteUserById(userId: string): Promise<number> {
-  return User.destroy({
+async function deleteUserById(userId: string): Promise<User> {
+  const deletedUser = await prisma.user.delete({
     where: {
       id: userId,
     },
   });
+
+  return deletedUser;
 }
 
-function getUser(where: WhereOptions): Promise<User | null> {
-  return User.findOne({
+async function getUser(
+  where: { githubId: string } | { googleId: string } | { twitterId: string },
+): Promise<User | null> {
+  const user = await prisma.user.findFirst({
     where,
   });
+
+  return user;
 }
 
-function getUserById(userId: string): Promise<User | null> {
-  return User.findByPk(userId);
-}
-
-function getUsers(options?: FindOptions): Promise<User[]> {
-  return User.findAll(options);
-}
-
-function getAndCountUsers(options?: FindOptions): Promise<[number, User[]]> {
-  return Promise.all([countUsers(options?.where), getUsers(options)]);
-}
-
-function getUsersByOrganizationId(organizationId: string): Promise<User[]> {
-  return User.findAll({
-    include: [
-      {
-        attributes: [],
-        model: Organization,
-        where: {
-          id: organizationId,
-        },
-      },
-    ],
-  });
-}
-
-function getUsersByTeamId(teamId: string): Promise<User[]> {
-  return User.findAll({
-    include: [
-      {
-        attributes: [],
-        model: Team,
-        where: {
-          id: teamId,
-        },
-      },
-    ],
-  });
-}
-
-function updateUserById(
-  userId: string,
-  values: Record<string, unknown>,
-): Promise<[number, User[]]> {
-  return User.update(values, {
+async function getUserById(userId: string): Promise<User | null> {
+  const user = await prisma.user.findUnique({
     where: {
       id: userId,
     },
   });
+
+  return user;
+}
+
+async function getUsers(): Promise<User[]> {
+  const users = await prisma.user.findMany();
+
+  return users;
+}
+
+async function getUsersByOrganizationId(organizationId: string): Promise<User[]> {
+  const users = await prisma.user.findMany({
+    where: {
+      organizations: {
+        some: {
+          organizationId,
+        },
+      },
+    },
+  });
+
+  return users;
+}
+
+async function getUsersByTeamId(teamId: string): Promise<User[]> {
+  const users = await prisma.user.findMany({
+    where: {
+      teams: {
+        some: {
+          teamId,
+        },
+      },
+    },
+  });
+
+  return users;
+}
+
+async function updateUserById(
+  userId: string,
+  data: {
+    mail?: string;
+    name?: string;
+    gitubId?: string;
+    googleId?: string;
+    twitterId?: string;
+  },
+): Promise<User> {
+  const updatedUser = await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data,
+  });
+
+  return updatedUser;
 }
 
 export {
-  countUsers,
   createUser,
   deleteUserById,
-  getAndCountUsers,
   getUser,
   getUserById,
   getUsers,

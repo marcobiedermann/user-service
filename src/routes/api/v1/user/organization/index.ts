@@ -4,8 +4,9 @@ import { validateGetOrganizations } from '../../../../../middlewares/validation/
 import { getOrganizationsByUserId } from '../../../../../services/organization';
 
 async function getOrganizationsByUserHandler(request: Request, response: Response): Promise<void> {
-  const { params } = request;
-  const { userId } = params;
+  const {
+    params: { userId },
+  } = request;
 
   const organizations = await getOrganizationsByUserId(userId);
 

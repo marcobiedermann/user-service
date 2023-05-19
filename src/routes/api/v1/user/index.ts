@@ -30,8 +30,9 @@ async function createUserHandler(request: Request, response: Response): Promise<
 }
 
 async function deleteUserHandler(request: Request, response: Response): Promise<void> {
-  const { params } = request;
-  const { userId } = params;
+  const {
+    params: { userId },
+  } = request;
 
   await deleteUserById(userId);
 
@@ -39,8 +40,9 @@ async function deleteUserHandler(request: Request, response: Response): Promise<
 }
 
 async function getUserHandler(request: Request, response: Response): Promise<void> {
-  const { params } = request;
-  const { userId } = params;
+  const {
+    params: { userId },
+  } = request;
 
   const user = await getUserById(userId);
 
@@ -53,7 +55,22 @@ async function getUserHandler(request: Request, response: Response): Promise<voi
   });
 }
 
-async function getUsersHandler(_request: Request, response: Response): Promise<void> {
+interface RequestParams {}
+
+interface ResponseBody {}
+
+interface RequestBody {}
+
+interface RequestQuery {
+  foo: string;
+}
+
+async function getUsersHandler(
+  request: Request<RequestParams, ResponseBody, RequestBody, RequestQuery>,
+  response: Response,
+): Promise<void> {
+  const { params, query, body } = request;
+
   const users = await getUsers();
 
   response.json({
@@ -62,8 +79,10 @@ async function getUsersHandler(_request: Request, response: Response): Promise<v
 }
 
 async function updateUserHandler(request: Request, response: Response): Promise<void> {
-  const { body, params } = request;
-  const { userId } = params;
+  const {
+    body,
+    params: { userId },
+  } = request;
 
   const updatedUser = await updateUserById(userId, body);
 

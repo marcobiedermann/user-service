@@ -30,8 +30,9 @@ async function createOrganizationHandler(request: Request, response: Response): 
 }
 
 async function deleteOrganizationHandler(request: Request, response: Response): Promise<void> {
-  const { params } = request;
-  const { organizationId } = params;
+  const {
+    params: { organizationId },
+  } = request;
 
   await deleteOrganizationById(organizationId);
 
@@ -39,8 +40,9 @@ async function deleteOrganizationHandler(request: Request, response: Response): 
 }
 
 async function getOrganizationHandler(request: Request, response: Response): Promise<void> {
-  const { params } = request;
-  const { organizationId } = params;
+  const {
+    params: { organizationId },
+  } = request;
 
   const organization = await getOrganizationById(organizationId);
 
@@ -62,8 +64,10 @@ async function getOrganizationsHandler(_request: Request, response: Response): P
 }
 
 async function updateOrganizationHandler(request: Request, response: Response): Promise<void> {
-  const { body, params } = request;
-  const { organizationId } = params;
+  const {
+    body,
+    params: { organizationId },
+  } = request;
 
   const updatedOrganization = await updateOrganizationById(organizationId, body);
 

@@ -1,13 +1,14 @@
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import { validateGetUsers } from '../../../../../middlewares/validation/user';
-import { getUsersByOrganizationId } from '../../../../../services/user';
+import { getUsersByTeamId } from '../../../../../services/user';
 
 async function getUsersByTeamHandler(request: Request, response: Response): Promise<void> {
-  const { params } = request;
-  const { teamId } = params;
+  const {
+    params: { teamId },
+  } = request;
 
-  const users = await getUsersByOrganizationId(teamId);
+  const users = await getUsersByTeamId(teamId);
 
   response.json({
     users,

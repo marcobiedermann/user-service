@@ -31,7 +31,8 @@
       {
         "devDependencies": ["**/*.test.ts"]
       }
-    ]
+    ],
+    "jest/no-hooks": "off",
   },
   "settings": {
     "import/resolver": {

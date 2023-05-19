@@ -4,8 +4,9 @@ import { validateGetUsers } from '../../../../../middlewares/validation/user';
 import { getUsersByOrganizationId } from '../../../../../services/user';
 
 async function getUsersByOrganizationHandler(request: Request, response: Response): Promise<void> {
-  const { params } = request;
-  const { organizationId } = params;
+  const {
+    params: { organizationId },
+  } = request;
 
   const users = await getUsersByOrganizationId(organizationId);
 

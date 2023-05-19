@@ -9,7 +9,7 @@ const googleStrategy = new Strategy(
     callbackURL: config.google.callbackUrl,
   },
   async (accessToken, refreshToken, profile, done): Promise<void> => {
-    console.log({ accessToken, refreshToken, profile });
+    console.log({ accessToken, refreshToken, profile: JSON.stringify(profile) });
 
     try {
       const user = await getUser({
@@ -18,7 +18,7 @@ const googleStrategy = new Strategy(
 
       if (!user) {
         const createdUser = await createUser({
-          mail: profile.emails && profile.emails[0].value,
+          mail: (profile.emails && profile.emails[0].value) || '',
           name: profile.displayName,
           googleId: profile.id,
         });
@@ -27,7 +27,9 @@ const googleStrategy = new Strategy(
       }
 
       return done(undefined, user);
-    } catch (error) {
+    } catch (err) {
+      const error = err as Error;
+
       return done(error);
     }
   },

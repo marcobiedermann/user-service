@@ -1,11 +1,12 @@
 import { errors } from 'celebrate';
 import compression from 'compression';
 import cors from 'cors';
+import { milliseconds } from 'date-fns';
 import express from 'express';
 import expressSession from 'express-session';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import path from 'path';
+import { join } from 'path';
 import config from './config';
 import errorHandler from './middlewares/error';
 import passport from './passport';
@@ -21,15 +22,18 @@ app.use(express.urlencoded());
 app.use(compression());
 app.use(cors());
 app.use(
-  express.static(path.join(__dirname, 'public'), {
-    maxAge: 31557600000, // 1000 * 60 * 60 * 24 * 365.25
+  express.static(join(__dirname, 'public'), {
+    maxAge: milliseconds({ years: 1 }),
   }),
 );
 app.use(
   expressSession({
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     secret: 'keyboard cat',
+    cookie: {
+      maxAge: milliseconds({ weeks: 2 }),
+    },
   }),
 );
 app.use(helmet());

@@ -1,15 +1,38 @@
-import { Strategy } from 'passport-github';
+import { Strategy } from 'passport-github2';
 import config from '../config';
 import { createUser, getUser } from '../services/user';
+
+interface Profile {
+  id: string;
+  nodeId: string;
+  displayName: string;
+  username: string;
+  profileUrl: string;
+  photos: { value: string }[];
+  emails: { value: string }[];
+}
+
+type VerifyCallback = (
+  err?: Error | null,
+  user?: Express.User,
+  info?: Record<string, unknown>,
+) => void;
 
 const githubStrategy = new Strategy(
   {
     clientID: config.github.clientId,
     clientSecret: config.github.clientSecret,
     callbackURL: config.github.callbackUrl,
-    scope: 'user:email',
+    scope: ['user:email'],
   },
-  async (_accessToken, _refreshToken, profile, done): Promise<void> => {
+  async (
+    accessToken: string,
+    refreshToken: string,
+    profile: Profile,
+    done: VerifyCallback,
+  ): Promise<void> => {
+    console.log({ accessToken, refreshToken, profile: JSON.stringify(profile) });
+
     try {
       const user = await getUser({
         githubId: profile.id,
@@ -26,7 +49,8 @@ const githubStrategy = new Strategy(
       }
 
       return done(null, user);
-    } catch (error) {
+    } catch (err) {
+      const error = err as Error;
       return done(error);
     }
   },

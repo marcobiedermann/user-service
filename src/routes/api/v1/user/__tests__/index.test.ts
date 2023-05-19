@@ -1,5 +1,5 @@
-import supertest from 'supertest';
 import faker from '@faker-js/faker';
+import supertest from 'supertest';
 import app from '../../../../../app';
 import * as userService from '../../../../../services/user';
 

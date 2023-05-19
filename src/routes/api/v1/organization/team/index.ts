@@ -4,8 +4,9 @@ import { validateGetTeams } from '../../../../../middlewares/validation/team';
 import { getTeamsByOrganizationId } from '../../../../../services/team';
 
 async function getTeamsByOrganizationHandler(request: Request, response: Response): Promise<void> {
-  const { params } = request;
-  const { organizationId } = params;
+  const {
+    params: { organizationId },
+  } = request;
 
   const teams = await getTeamsByOrganizationId(organizationId);
 

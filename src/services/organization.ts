@@ -1,71 +1,73 @@
-import { FindOptions, WhereOptions } from 'sequelize';
-import { Organization, User } from '../models';
+import { Organization } from '@prisma/client';
+import prisma from '../config/prisma';
 
-function countOrganizations(where?: WhereOptions): Promise<number> {
-  return Organization.count({ where });
+async function createOrganization(data: { name: string }): Promise<Organization> {
+  const createdOrganization = await prisma.organization.create({
+    data,
+  });
+
+  return createdOrganization;
 }
 
-function createOrganization(values: Record<string, unknown>): Promise<Organization> {
-  return Organization.create(values);
-}
-
-function deleteOrganizationById(organizationId: string): Promise<number> {
-  return Organization.destroy({
+async function deleteOrganizationById(organizationId: string): Promise<Organization> {
+  const deletedOrganization = await prisma.organization.delete({
     where: {
       id: organizationId,
     },
   });
+
+  return deletedOrganization;
 }
 
-function getOrganization(where: WhereOptions): Promise<Organization | null> {
-  return Organization.findOne({
-    where,
+async function getOrganizationById(organizationId: string): Promise<Organization | null> {
+  const organization = await prisma.organization.findUnique({
+    where: {
+      id: organizationId,
+    },
   });
+
+  return organization;
 }
 
-function getOrganizationById(organizationId: string): Promise<Organization | null> {
-  return Organization.findByPk(organizationId);
+async function getOrganizations(): Promise<Organization[]> {
+  const organizations = await prisma.organization.findMany();
+
+  return organizations;
 }
 
-function getOrganizations(options?: FindOptions): Promise<Organization[]> {
-  return Organization.findAll(options);
-}
-
-function getAndCountOrganizations(options?: FindOptions): Promise<[number, Organization[]]> {
-  return Promise.all([countOrganizations(options?.where), getOrganizations(options)]);
-}
-
-function getOrganizationsByUserId(userId: string): Promise<Organization[]> {
-  return Organization.findAll({
-    include: [
-      {
-        attributes: [],
-        model: User,
-        where: {
-          id: userId,
+async function getOrganizationsByUserId(userId: string): Promise<Organization[]> {
+  const organizations = await prisma.organization.findMany({
+    where: {
+      users: {
+        some: {
+          userId,
         },
       },
-    ],
+    },
   });
+
+  return organizations;
 }
 
-function updateOrganizationById(
+async function updateOrganizationById(
   organizationId: string,
-  values: Record<string, unknown>,
-): Promise<[number, Organization[]]> {
-  return Organization.update(values, {
+  data: {
+    name?: string;
+  },
+): Promise<Organization> {
+  const updatedOrganization = await prisma.organization.update({
     where: {
       id: organizationId,
     },
+    data,
   });
+
+  return updatedOrganization;
 }
 
 export {
-  countOrganizations,
   createOrganization,
   deleteOrganizationById,
-  getAndCountOrganizations,
-  getOrganization,
   getOrganizationById,
   getOrganizations,
   getOrganizationsByUserId,
