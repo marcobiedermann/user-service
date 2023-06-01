@@ -55,7 +55,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.21.5",
     "@babel/preset-typescript": "^7.21.5",
-    "@faker-js/faker": "^8.0.1",
+    "@faker-js/faker": "^8.0.2",
     "@mermaid-js/mermaid-cli": "^10.1.0",
     "@types/compression": "^1.7.2",
     "@types/cors": "^2.8.13",
